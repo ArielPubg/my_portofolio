@@ -88,6 +88,55 @@ body {
 .project-card-v2 {
   background: var(--primary);
   background-image: url(/Images-logo/agence_voyage/page_connexion.png); 
+  background-size: cover; background-position: center;
+  border-radius: 20px;
+  height: 400px;
+
+  overflow: hidden;
+  position: relative;
+
+  color: white;
+  border: none; border-radius: 20px; transition: var(--transition);
+}
+
+.project-card-v2-1 {
+  background: var(--primary);
+  background-image: url(/Images-logo/agence_voyage/page_connexion.png); 
+  background-size: cover; background-position: center;
+  border-radius: 20px;
+  height: 400px;
+
+  overflow: hidden;
+  position: relative;
+
+  color: white;
+  border: none; border-radius: 20px; transition: var(--transition);
+}
+
+.project-card-v2-2 {
+  background: var(--primary);
+  background-image: url(/Images-logo/todolist/todolist.png); 
+  background-size: cover; background-position: center;
+  border-radius: 20px;
+  height: 400px;
+
+  overflow: hidden;
+  position: relative;
+
+  color: white;
+  border: none; border-radius: 20px; transition: var(--transition);
+}
+
+.project-card-v2-3 {
+  background: var(--primary);
+  background-image: url(/Images-logo/analyse_sport/analyse.png); 
+  background-size: cover; background-position: center;
+  border-radius: 20px;
+  height: 400px;
+
+  overflow: hidden;
+  position: relative;
+
   color: white;
   border: none; border-radius: 20px; transition: var(--transition);
 }
