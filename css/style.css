@@ -86,7 +86,9 @@ body {
 .cert-img:hover { transform: scale(1.05); filter: grayscale(0); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 
 .project-card-v2 {
-  background: var(--primary); color: white;
+  background: var(--primary);
+  background-image: url(/Images-logo/agence_voyage/page_connexion.png); 
+  color: white;
   border: none; border-radius: 20px; transition: var(--transition);
 }
 .project-card-v2:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
