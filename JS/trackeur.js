@@ -16,7 +16,7 @@
         }
 
         // Envoi des donnees a google sheet
-        await fetch('https://script.googleapis.com/v1/scripts/AKfycbw80F4cNrSfS73qWg8CDitIoN2bWA2PXed1ekco6EqC1YOLKfKgKJgaCUGRtyEPxPcn:run',{
+        await fetch('https://script.googleapis.com/v1/scripts/AKfycbwUMZ6jRifKFhTWGplIQt12yKdTFnXV4J7Jd9-cT0LRLXXLzc5H0BhKHpCOHix7oDVPIw:run',{
             method:'POST',
             headers:{
                 "content-type":"application/json"
@@ -27,20 +27,8 @@
 
         console.log("Données de suivi envoyées avec succès");
     }catch(err){
-        console.log("Une erreur s'est produite")
+        console.log("Une erreur s'est produite");
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 })
