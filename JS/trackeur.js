@@ -16,7 +16,7 @@
         }
 
         // Envoi des donnees a google sheet
-        await fetch('https://script.googleapis.com/v1/scripts/AKfycbwUMZ6jRifKFhTWGplIQt12yKdTFnXV4J7Jd9-cT0LRLXXLzc5H0BhKHpCOHix7oDVPIw:run',{
+        await fetch('https://script.google.com/macros/s/AKfycbwUMZ6jRifKFhTWGplIQt12yKdTFnXV4J7Jd9-cT0LRLXXLzc5H0BhKHpCOHix7oDVPIw/exec',{
             method:'POST',
             headers:{
                 "content-type":"application/json"
