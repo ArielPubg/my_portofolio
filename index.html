@@ -1,326 +1,482 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ariel Drabo | Portfolio Data Scientist</title>
-  
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/css/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ariel Drabo — Data Analyst & Développeur, Automatisation</title>
+<meta name="description" content="Ariel Drabo — Data Analyst & Développeur freelance. J'analyse vos données, je construis vos outils web et j'automatise vos tâches répétitives.">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body data-theme="light">
+<body data-theme="dark">
 
-  <div class="theme-toggle" id="theme-button" title="Changer de mode">
-    <i class="fas fa-moon"></i>
-  </div>
+<div class="grain" aria-hidden="true"></div>
 
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">ARIEL<span>.DATA</span></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- ============ NAV ============ -->
+<header class="site-nav" id="site-nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="brand-prompt">&gt;</span>ariel<span class="brand-dot">.</span>data
+    </a>
+
+    <nav class="nav-links" id="nav-links" aria-label="Navigation principale">
+      <a href="#about"><span class="idx">01</span>Profil</a>
+      <a href="#pipeline"><span class="idx">02</span>Expertise</a>
+      <a href="#certifications"><span class="idx">03</span>Certifications</a>
+      <a href="#projects"><span class="idx">04</span>Projets</a>
+      <a href="#contact"><span class="idx">05</span>Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Changer de thème" aria-pressed="false">
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+        <i class="fa-solid fa-sun" aria-hidden="true"></i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item"><a class="nav-link" href="#about">À Propos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-          <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
-          <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-          <li class="nav-item ms-lg-3">
-            <a href="certificats/cv_ARIEL_2.pdf" download class="btn-cv">Mon CV <i class="fas fa-download ms-1"></i></a>
-          </li>
-        </ul>
-      </div>
+      <a href="certificats/cv_ARIEL_2.pdf" download class="btn btn-cv">
+        <span>CV</span><i class="fa-solid fa-arrow-down"></i>
+      </a>
+      <button class="burger" id="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <header class="hero-section d-flex align-items-center">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-7" data-aos="fade-right">
-          <h5 class="text-warning fw-bold">Bonjour, je suis</h5>
-          <h1 class="display-2 fw-bold name-title">Ariel Drabo</h1>
-          <h4 class="mb-4 subtitle-hero">Étudiant en L3 Statistique et Informatique Décisionnelle</h4>
-          <p class="lead mb-4">Passionné par la Data et l'IA, j'allie raisonnement analytique et méthodologie pour transformer des données brutes en insights exploitables.</p>
-          <div class="social-hero mb-4">
-            <a href="https://github.com/ArielPubg" class="me-3"><i class="fab fa-github fa-2x"></i></a>
-            <a href="https://www.linkedin.com/in/ariel-drabo-78a99b345" class="me-3"><i class="fab fa-linkedin fa-2x"></i></a>
-            <a href="https://wa.me/qr/6LASBTSKULJ3O1"><i class="fab fa-whatsapp fa-2x"></i></a>
-          </div>
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow"><span class="cursor-dot"></span><span class="mono">$ whoami</span></p>
+        <h1 class="hero-title">
+          <span class="line" id="typed-name">Ariel Drabo</span>
+        </h1>
+        <h2 class="hero-role">
+          <span class="role-fixed">Data Analyst&nbsp;&amp;&nbsp;Développeur</span>
+          <span class="role-rotator" id="role-rotator" aria-live="polite"></span>
+        </h2>
+        <p class="hero-lead">
+          Je transforme des données brutes en décisions claires, je construis des outils web sur mesure
+          et j'automatise les tâches qui vous font perdre du temps. Basé à Ouagadougou, je travaille
+          avec des clients en Afrique et à l'international.
+        </p>
+
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">Discuter d'un projet <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#projects" class="btn btn-ghost">Voir mes projets</a>
         </div>
-        <div class="col-lg-5 text-center" data-aos="zoom-in">
-          <div class="hero-img-box">
-            <img src="Images-logo/ariel6.jpg" alt="Ariel Drabo" class="main-profile-img">
-            <div class="tech-stack-float">Python → R → SQL</div>
-          </div>
+
+        <div class="hero-socials">
+          <a href="https://github.com/ArielPubg" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ariel-drabo-78a99b345" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://wa.me/qr/6LASBTSKULJ3O1" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
-    </div>
-  </header>
 
-  <section id="about" class="py-5 section-padding">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
-          <h2 class="section-title">A Propos de moi</h2>
-          <div class="about-text-card p-4">
-            <p>Actuellement à l'<strong>Université Ouaga 3S</strong>, je poursuis un parcours marqué par la rigueur et l'excellence académique.</p>
-            <p>Mon ambition est claire : devenir <strong>Data Scientist</strong> pour concevoir des solutions innovantes adaptées aux défis de notre époque. Je suis convaincu que l'Afrique de demain se construit aujourd'hui par le travail acharné et la vision stratégique.</p>
+      <div class="hero-terminal" data-reveal data-reveal-delay="1">
+        <div class="terminal-window">
+          <div class="terminal-bar">
+            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+            <span class="terminal-title mono">mission.sh — client</span>
           </div>
+          <div class="terminal-body mono" id="terminal-body" aria-hidden="true"></div>
         </div>
-        <div class="col-lg-6" data-aos="fade-left">
-          <div class="row g-3">
-            <div class="col-6"><img src="Images-logo/lycee_betsaleel.jpg" class="img-fluid rounded shadow" alt="Lycée"></div>
-            <div class="col-6 mt-5"><img src="Images-logo/universite_3s.jpg" class="img-fluid rounded shadow" alt="Université"></div>
+        <div class="hero-badges">
+          <span class="badge"><i class="fa-solid fa-database"></i>Données</span>
+          <span class="badge"><i class="fa-solid fa-code"></i>Web</span>
+          <span class="badge"><i class="fa-solid fa-gears"></i>Automatisation</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true"><span></span>scroll</div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <p class="section-eyebrow mono" data-reveal>01 — Profil</p>
+      <div class="about-grid">
+
+        <div class="about-portrait" data-reveal>
+          <div class="portrait-frame">
+            <img src="Images-logo/ariel6.jpg" alt="Portrait d'Ariel Drabo" loading="lazy">
+          </div>
+          <p class="portrait-caption mono">Ouagadougou, Burkina Faso</p>
+        </div>
+
+        <div class="about-content" data-reveal data-reveal-delay="1">
+          <h2 class="section-title">Je résous des problèmes concrets avec les données et le code.</h2>
+          <p class="about-text">
+            J'aide les entreprises et les organisations à comprendre leurs données, à mettre en ligne
+            des outils fiables et à supprimer les tâches manuelles répétitives grâce à des scripts
+            d'automatisation. Chaque projet part d'un besoin réel : moins de temps perdu, plus de
+            décisions fondées sur des faits.
+          </p>
+          <p class="about-text">
+            Rigoureux et méthodique, je documente ce que je livre et je reste disponible après
+            la mise en production. Mon objectif n'est pas de livrer du code — c'est de livrer un
+            résultat qui continue de fonctionner sans moi.
+          </p>
+
+          <div class="pillars">
+            <div class="pillar">
+              <i class="fa-solid fa-chart-line"></i>
+              <h3>Analyse de données</h3>
+              <p>Nettoyage, exploration et modélisation pour transformer vos chiffres en décisions.</p>
+            </div>
+            <div class="pillar">
+              <i class="fa-solid fa-laptop-code"></i>
+              <h3>Développement web</h3>
+              <p>Applications et sites sur mesure, du prototype à la mise en production.</p>
+            </div>
+            <div class="pillar">
+              <i class="fa-solid fa-robot"></i>
+              <h3>Automatisation</h3>
+              <p>Scripts et workflows qui suppriment les tâches manuelles récurrentes.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!--MES SKILLS -->
-  <section id="skills" class="py-5 bg-light-alt section-padding">
-    <div class="container">
-      <h2 class="text-center section-title mb-5" data-aos="fade-up">Mes Compétences</h2>
-      <div class="row g-4">
-        <div class="col-md-6" data-aos="fade-right">
-          <div class="skill-group p-4 shadow-sm">
-            <h4><i class="fas fa-code text-warning me-2"></i> Langages</h4>
-            <div class="skill-item"><span>PYTHON</span><div class="progress"><div class="progress-bar bg-primary" style="width: 85%"></div></div></div>
-            <div class="skill-item"><span>R</span><div class="progress"><div class="progress-bar bg-primary" style="width: 75%"></div></div></div>
-            <div class="skill-item"><span>SQL</span><div class="progress"><div class="progress-bar bg-primary" style="width: 90%"></div></div></div>
-            <div class="skill-item"><span>JAVASCRIPT / C++</span><div class="progress"><div class="progress-bar bg-primary" style="width: 60%"></div></div></div>
+  <!-- ============ PIPELINE / EXPERTISE ============ -->
+  <section class="pipeline" id="pipeline">
+    <div class="wrap">
+      <p class="section-eyebrow mono" data-reveal>02 — Expertise</p>
+      <h2 class="section-title" data-reveal>Ma méthode, du brut au livré.</h2>
+      <p class="section-sub" data-reveal data-reveal-delay="1">
+        Cinq étapes, un seul objectif&nbsp;: un livrable fiable, documenté, qui tient dans le temps.
+      </p>
+
+      <div class="pipeline-track" data-reveal data-reveal-delay="2">
+
+        <article class="stage">
+          <div class="stage-head">
+            <span class="stage-num mono">01</span>
+            <h3>Ingestion</h3>
           </div>
+          <p>Connexion et collecte des données depuis vos fichiers, bases ou APIs.</p>
+          <ul class="stage-tags">
+            <li>Python</li><li>SQL</li><li>API REST</li>
+          </ul>
+        </article>
+
+        <article class="stage">
+          <div class="stage-head">
+            <span class="stage-num mono">02</span>
+            <h3>Nettoyage</h3>
+          </div>
+          <p>Correction des incohérences, valeurs manquantes et doublons.</p>
+          <ul class="stage-tags">
+            <li>Pandas</li><li>Tidyverse (R)</li><li>SQL</li>
+          </ul>
+        </article>
+
+        <article class="stage">
+          <div class="stage-head">
+            <span class="stage-num mono">03</span>
+            <h3>Analyse</h3>
+          </div>
+          <p>Statistiques, visualisation et modèles prédictifs sur mesure.</p>
+          <ul class="stage-tags">
+            <li>Scikit-Learn</li><li>Statistiques</li><li>Matplotlib</li>
+          </ul>
+        </article>
+
+        <article class="stage">
+          <div class="stage-head">
+            <span class="stage-num mono">04</span>
+            <h3>Automatisation</h3>
+          </div>
+          <p>Scripts et tâches planifiées qui exécutent le travail répétitif à votre place.</p>
+          <ul class="stage-tags">
+            <li>Python</li><li>Scripts Shell</li><li>APIs</li>
+          </ul>
+        </article>
+
+        <article class="stage">
+          <div class="stage-head">
+            <span class="stage-num mono">05</span>
+            <h3>Livraison</h3>
+          </div>
+          <p>Application, tableau de bord ou rapport prêt à l'emploi pour votre équipe.</p>
+          <ul class="stage-tags">
+            <li>Django</li><li>Flask</li><li>Bootstrap</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <div class="lang-grid" data-reveal data-reveal-delay="3">
+        <div class="lang-col">
+          <h4 class="mono">// Langages</h4>
+          <div class="bar-row"><span>Python</span><div class="bar"><i style="--w:90%"></i></div></div>
+          <div class="bar-row"><span>SQL</span><div class="bar"><i style="--w:90%"></i></div></div>
+          <div class="bar-row"><span>R</span><div class="bar"><i style="--w:78%"></i></div></div>
+          <div class="bar-row"><span>JavaScript / C++</span><div class="bar"><i style="--w:62%"></i></div></div>
         </div>
-        <div class="col-md-6" data-aos="fade-left">
-          <div class="skill-group p-4 shadow-sm">
-            <h4><i class="fas fa-layer-group text-warning me-2"></i> Frameworks</h4>
-            <div class="skill-item"><span>DJANGO</span><div class="progress"><div class="progress-bar bg-warning" style="width: 80%"></div></div></div>
-            <div class="skill-item"><span>FLASK</span><div class="progress"><div class="progress-bar bg-warning" style="width: 65%"></div></div></div>
-            <div class="skill-item"><span>QT C++</span><div class="progress"><div class="progress-bar bg-warning" style="width: 55%"></div></div></div>
-            <div class="skill-item"><span>BOOTSTRAP</span><div class="progress"><div class="progress-bar bg-warning" style="width: 90%"></div></div></div>
-          </div>
+        <div class="lang-col">
+          <h4 class="mono">// Frameworks & outils</h4>
+          <div class="bar-row"><span>Django</span><div class="bar"><i style="--w:82%"></i></div></div>
+          <div class="bar-row"><span>Flask</span><div class="bar"><i style="--w:68%"></i></div></div>
+          <div class="bar-row"><span>Bootstrap</span><div class="bar"><i style="--w:90%"></i></div></div>
+          <div class="bar-row"><span>Qt C++</span><div class="bar"><i style="--w:58%"></i></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MES CERTIFICATIONS -->
-  <section id="certifications" class="py-5 section-padding">
-    <div class="container">
-      <h2 class="text-center section-title mb-5" data-aos="fade-up">Mes Certifications</h2>
-      <div class="row g-4 text-center">
-        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
-          <a href="certificats/Certifcat Google.pdf" target="_blank" class="cert-link">
-            <img src="certificats/python COUSERA.jpg" class="img-fluid cert-img" alt="Certif Python">
-            <p class="mt-2 fw-bold">Python Coursera</p>
-          </a>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
-          <a href="certificats/Certificat.pdf" target="_blank" class="cert-link">
-            <img src="certificats/Data Analysis ForceN.png" class="img-fluid cert-img" alt="Data Analysis">
-            <p class="mt-2 fw-bold">Data Analysis</p>
-          </a>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="300">
-          <a href="certificats/Coursera AWS.pdf" target="_blank" class="cert-link">
-            <img src="certificats/AWS COURSERA.jpg" class="img-fluid cert-img" alt="AWS">
-            <p class="mt-2 fw-bold">AWS Cloud</p>
-          </a>
-        </div>
-        <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-          <a href="certificats/Coursera promptEnginneer.pdf" target="_blank" class="cert-link">
-            <img src="certificats/promptEnginneer.png" class="img-fluid cert-img" alt="Prompt Eng">
-            <p class="mt-2 fw-bold">Prompt Engineering</p>
-          </a>
-          </div>
+  <!-- ============ CERTIFICATIONS ============ -->
+  <section class="certifications" id="certifications">
+    <div class="wrap">
+      <p class="section-eyebrow mono" data-reveal>03 — Certifications</p>
+      <h2 class="section-title" data-reveal>Formation continue, validée.</h2>
 
-          <!-- LINUX -->
-            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-
-           <a href="certificats/Coursera_linux.pdf" target="_blank" class="cert-link">
-            <img src="certificats/linux.png" class="img-fluid cert-img" alt="Prompt Eng">
-            <p class="mt-2 fw-bold">Introduction a linux</p>
-          </a>
-          </div>
-          <!-- API PYTHON -->
-                   <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-
-           <a href="certificats/Course API.pdf" target="_blank" class="cert-link">
-            <img src="certificats/api_python.png" class="img-fluid cert-img" alt="Prompt Eng">
-            <p class="mt-2 fw-bold">API avec Python</p>
-          </a>
-          </div>
-          <!-- PANDAS -->
-               <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-
-           <a href="certificats/certificat_pandas.pdf" target="_blank" class="cert-link">
-            <img src="certificats/pandas.png" class="img-fluid cert-img" alt="Prompt Eng">
-            <p class="mt-2 fw-bold">Pandas</p>
-          </a>
-          </div>  
-            <!-- STATISTIQUE POUR LA DATA SCIENCE -->
-             
-            <div class="col-md-3" data-aos="zoom-in" data-aos-delay="400">
-          <a href="certificats/Statistique Data Science.pdf" target="_blank" class="cert-link">
-            <img src="certificats/statistique.png" class="img-fluid cert-img" alt="Prompt Eng">
-            <p class="mt-2 fw-bold">Statistiques pour la DATA SCIENCE</p>
-          </a>
-        </div>
+      <div class="cert-grid" data-reveal data-reveal-delay="1">
+        <a class="cert-card" href="certificats/Certifcat Google.pdf" target="_blank" rel="noopener">
+          <img src="certificats/python COUSERA.jpg" alt="Certificat Python" loading="lazy">
+          <span>Python — Coursera</span>
+        </a>
+        <a class="cert-card" href="certificats/Certificat.pdf" target="_blank" rel="noopener">
+          <img src="certificats/Data Analysis ForceN.png" alt="Certificat Data Analysis" loading="lazy">
+          <span>Data Analysis</span>
+        </a>
+        <a class="cert-card" href="certificats/Coursera AWS.pdf" target="_blank" rel="noopener">
+          <img src="certificats/AWS COURSERA.jpg" alt="Certificat AWS Cloud" loading="lazy">
+          <span>AWS Cloud</span>
+        </a>
+        <a class="cert-card" href="certificats/Coursera promptEnginneer.pdf" target="_blank" rel="noopener">
+          <img src="certificats/promptEnginneer.png" alt="Certificat Prompt Engineering" loading="lazy">
+          <span>Prompt Engineering</span>
+        </a>
+        <a class="cert-card" href="certificats/Coursera_linux.pdf" target="_blank" rel="noopener">
+          <img src="certificats/linux.png" alt="Certificat Introduction à Linux" loading="lazy">
+          <span>Introduction à Linux</span>
+        </a>
+        <a class="cert-card" href="certificats/Course API.pdf" target="_blank" rel="noopener">
+          <img src="certificats/api_python.png" alt="Certificat API avec Python" loading="lazy">
+          <span>API avec Python</span>
+        </a>
+        <a class="cert-card" href="certificats/certificat_pandas.pdf" target="_blank" rel="noopener">
+          <img src="certificats/pandas.png" alt="Certificat Pandas" loading="lazy">
+          <span>Pandas</span>
+        </a>
+        <a class="cert-card" href="certificats/Statistique Data Science.pdf" target="_blank" rel="noopener">
+          <img src="certificats/statistique.png" alt="Certificat Statistiques pour la Data Science" loading="lazy">
+          <span>Statistiques pour la Data Science</span>
+        </a>
       </div>
     </div>
   </section>
 
-<!-- MES CONNEXIONS -->
-  <section id="projects" class="py-5 bg-light-alt section-padding">
-    <div class="container">
-      <h2 class="text-center section-title mb-5" data-aos="fade-up">Mes Projets</h2>
-      <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-1 w-100" style="min-height: 200px;">
-                </div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">Agence de Voyage</h5>
-            <p class="card-text small text-warning rounded-3">Application web intuitive pour faciliter la gestion des réservations et des compagnies. <br> Avec des moyens de paiement mobiles intégrés (Orange Money, Moov money, Sank money).</p>
-            <p class="my-2 text-warning">Technologie : Django, HTML, CSS, JavaScript, Bootstrap, PostgreSQL</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/Projet_Agence_de_Voyage" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
-</div>
+  <!-- ============ PROJECTS ============ -->
+  <section class="projects" id="projects">
+    <div class="wrap">
+      <p class="section-eyebrow mono" data-reveal>04 — Projets</p>
+      <h2 class="section-title" data-reveal>Réalisations récentes.</h2>
 
-<div class="container my-5">
-    <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right" data-aos-delay="100">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-2 w-100" style="min-height: 200px;"></div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">To-Do List Django</h5>
-            <p class="card-text small text-warning rounded-3">Gestionnaire de tâches moderne avec interface intuitive réalisé sous framework Django.</p>
-            <p class="my-2 text-warning">Technologie : Django, HTML, CSS, JavaScript, SQLite</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/todolist" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
-</div>
+      <div class="project-list">
 
-<div class="container my-5">
-    <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right" data-aos-delay="200">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-3 w-100" style="min-height: 200px;"></div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">Data Performance</h5>
-            <p class="card-text small text-warning rounded-3">Analyse de données footballistiques sur Google Colab pour optimiser les performances.</p>
-            <p class="my-2 text-warning">Technologie : Python, Pandas, Matplotlib, Google Colab</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/analyse_performance_sport" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
-</div>
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-1" aria-hidden="true">
+            <i class="fa-solid fa-plane"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Web · Django</span>
+            <h3>Agence de voyage</h3>
+            <p>Plateforme de réservation de voyages avec gestion des compagnies partenaires et paiement
+              mobile intégré (Orange Money, Moov Money, Sank Money).</p>
+            <ul class="tech-chips">
+              <li>Django</li><li>PostgreSQL</li><li>JavaScript</li><li>Bootstrap</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/Projet_Agence_de_Voyage" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
 
-<div class="container my-5">
-    <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right" data-aos-delay="300">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-4 w-100" style="min-height: 200px;"></div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">Machine Learning</h5>
-            <p class="card-text small text-warning rounded-3">Modèle de prédiction de résultats sportifs basé sur des attributs statistiques historiques.</p>
-            <p class="my-2 text-warning">Technologie : Scikit-Learn, Python, NumPy</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/machine_learning_prediction_sport" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
-</div>
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-2" aria-hidden="true">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Web · Django</span>
+            <h3>Gestionnaire de tâches</h3>
+            <p>Application de gestion de tâches avec interface épurée, pensée pour un usage quotidien
+              rapide et sans friction.</p>
+            <ul class="tech-chips">
+              <li>Django</li><li>SQLite</li><li>JavaScript</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/todolist" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
 
-<div class="container my-5">
-    <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right" data-aos-delay="200">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-5 w-100" style="min-height: 200px;"></div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">Apurement de Donnée</h5>
-            <p class="card-text small text-warning rounded-3">Traitement de données vétérinaires sur R pour l'obtention d'une base saine à l'analyse.</p>
-            <p class="my-2 text-warning">Technologie : R, Tidyverse, RStudio</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/apurement_donnee_veterinaire" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
-</div>
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-3" aria-hidden="true">
+            <i class="fa-solid fa-futbol"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Data Analyse</span>
+            <h3>Data Performance sportive</h3>
+            <p>Analyse de données de performance footballistique pour dégager les indicateurs clés et
+              orienter les décisions d'un staff technique.</p>
+            <ul class="tech-chips">
+              <li>Python</li><li>Pandas</li><li>Matplotlib</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/analyse_performance_sport" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
 
-<div class="container my-5">
-    <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right" data-aos-delay="300">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-6 w-100" style="min-height: 200px;"></div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">Chaine de froid BF</h5>
-            <p class="card-text small text-warning rounded-3">Analyse de données sur la chaine de froid au Burkina Faso pour identifier les tendances.</p>
-            <p class="my-2 text-warning">Technologie : R, ggplot2, Shiny</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/analyse_chaine_froid" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
-</div>
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-4" aria-hidden="true">
+            <i class="fa-solid fa-brain"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Machine Learning</span>
+            <h3>Prédiction de résultats sportifs</h3>
+            <p>Modèle prédictif entraîné sur des attributs statistiques historiques pour anticiper
+              l'issue de rencontres sportives.</p>
+            <ul class="tech-chips">
+              <li>Scikit-Learn</li><li>Python</li><li>NumPy</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/machine_learning_prediction_sport" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
 
-<div class="container my-5">
-    <div class="row g-4 justify-content-center align-items-center" data-aos="flip-right" data-aos-delay="300">
-        <div class="col-12 col-md-5 d-flex justify-content-center">
-            <div class="card project-card-v2-7 w-100" style="min-height: 200px;"></div>
-        </div>
-        <div class="col-12 col-md-6 text-center text-md-start">
-            <h5 class="card-title text-warning my-2">Gestion de Bibliothèque</h5>
-            <p class="card-text small text-warning rounded-3">Système efficace pour gérer les stocks de livres, les emprunts et les lecteurs.</p>
-            <p class="my-2 text-warning">Technologie : Python, Django, PostgreSQL</p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <a href="https://github.com/ArielPubg/bibliotheque_django" class="btn btn-sm btn-outline-warning">Voir Github</a>
-            </div>
-        </div>
-    </div>
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-5" aria-hidden="true">
+            <i class="fa-solid fa-paw"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Data · R</span>
+            <h3>Apurement de données vétérinaires</h3>
+            <p>Traitement et fiabilisation d'une base de données vétérinaire, pour la rendre exploitable
+              en analyse.</p>
+            <ul class="tech-chips">
+              <li>R</li><li>Tidyverse</li><li>RStudio</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/apurement_donnee_veterinaire" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-6" aria-hidden="true">
+            <i class="fa-solid fa-temperature-low"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Data · R Shiny</span>
+            <h3>Chaîne de froid — Burkina Faso</h3>
+            <p>Analyse de données sur la chaîne de froid pharmaceutique pour identifier les tendances et
+              points de rupture.</p>
+            <ul class="tech-chips">
+              <li>R</li><li>ggplot2</li><li>Shiny</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/analyse_chaine_froid" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="project-card" data-reveal>
+          <div class="project-visual proj-7" aria-hidden="true">
+            <i class="fa-solid fa-book"></i>
+          </div>
+          <div class="project-info">
+            <span class="project-tag mono">Web · Django</span>
+            <h3>Gestion de bibliothèque</h3>
+            <p>Système de gestion des stocks de livres, des emprunts et des lecteurs pour une
+              bibliothèque.</p>
+            <ul class="tech-chips">
+              <li>Python</li><li>Django</li><li>PostgreSQL</li>
+            </ul>
+            <a href="https://github.com/ArielPubg/bibliotheque_django" target="_blank" rel="noopener" class="project-link">
+              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </article>
 
       </div>
     </div>
   </section>
 
-  <footer id="contact" class="py-5 bg-dark text-white section-padding">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8 text-center" data-aos="fade-up">
-          <h2 class="mb-4">Un projet en tête ?</h2>
-          <p class="mb-5">N'hésitez pas à me contacter directement par mail ou via mes réseaux.</p>
-          <div class="contact-box p-4 p-md-5 rounded shadow">
-            <form action="https://formspree.io/f/xaqygvdy" method="POST">
-              <div class="row g-3">
-                <div class="col-md-6"><input type="text" name="name" class="form-control custom-input" placeholder="Votre Nom" required></div>
-                <div class="col-md-6"><input type="email" name="email" class="form-control custom-input" placeholder="Votre Email" required></div>
-                <div class="col-12"><textarea name="message" class="form-control custom-input" rows="4" placeholder="Votre Message" required></textarea></div>
-                <div class="col-12"><button type="submit" class="btn btn-warning w-100 py-3 fw-bold">ENVOYER LE MESSAGE</button></div>
-              </div>
-            </form>
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <p class="section-eyebrow mono" data-reveal>05 — Contact</p>
+      <div class="contact-grid">
+
+        <div class="contact-intro" data-reveal>
+          <h2 class="section-title">Un projet de données ou d'automatisation en tête&nbsp;?</h2>
+          <p>Décrivez-moi votre besoin — je reviens vers vous sous 24h avec une première approche.</p>
+          <div class="contact-channels">
+            <a href="https://wa.me/qr/6LASBTSKULJ3O1" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+            <a href="https://www.linkedin.com/in/ariel-drabo-78a99b345" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
+            <a href="https://github.com/ArielPubg" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
           </div>
         </div>
-      </div>
-      <div class="text-center mt-5 pt-4 border-top opacity-50">
-        <p>&copy; 2025 Ariel Drabo - Tout droit reserve</p>
+
+        <form class="contact-form" data-reveal data-reveal-delay="1" action="https://formspree.io/f/xaqygvdy" method="POST">
+          <div class="field">
+            <label for="name">Nom</label>
+            <input id="name" type="text" name="name" placeholder="Votre nom" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" placeholder="vous@exemple.com" required>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Décrivez votre besoin en quelques lignes…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            Envoyer le message <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script src="JS/bootstrap.bundle.min.js"></script>
-  <script src="JS/aos.js"></script>
-  <script src="JS/index.js"></script>
-  <script src="JS/trackeur.js"></script>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>&copy; 2025 Ariel Drabo</span>
+    <span class="mono">Fait à Ouagadougou</span>
+  </div>
+</footer>
+
+<div class="consent-bar" id="consent-bar" role="dialog" aria-label="Consentement cookies" aria-live="polite" hidden>
+  <p>
+    Ce site utilise Google Analytics pour comprendre comment il est visité.
+    Aucune donnée n'est partagée ni vendue. <span class="mono">— cookies analytiques uniquement</span>
+  </p>
+  <div class="consent-actions">
+    <button type="button" class="btn btn-ghost" id="consent-decline">Refuser</button>
+    <button type="button" class="btn btn-primary" id="consent-accept">Accepter</button>
+  </div>
+</div>
+
+<script src="JS/index.js"></script>
+<script src="JS/analytics.js"></script>
 </body>
 </html>
