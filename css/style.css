@@ -287,7 +287,7 @@ section{padding:110px 0;}
   border-radius:var(--radius-l); overflow:hidden; border:1px solid var(--border);
   aspect-ratio:4/5;
 }
-.portrait-frame img{width:100%; height:100%; object-fit:cover;}
+.portrait-frame img{width:100%; height:100%; object-fit:contain;}
 .portrait-caption{margin-top:14px; color:var(--text-dim); font-size:.82rem;}
 
 .about-text{color:var(--text-dim); margin-bottom:16px; max-width:60ch;}
