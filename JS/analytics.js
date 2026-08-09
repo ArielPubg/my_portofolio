@@ -41,18 +41,22 @@
     loadGoogleAnalytics();
   } else if (stored !== 'denied') {
     // Pas encore de choix : on affiche la bannière après un court délai
-    setTimeout(() => { bar.hidden = false; }, 800);
+    setTimeout(() => { if (bar) bar.hidden = false; }, 800);
   }
 
-  acceptBtn?.addEventListener('click', () => {
-    localStorage.setItem(CONSENT_KEY, 'granted');
-    bar.hidden = true;
-    loadGoogleAnalytics();
-  });
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'granted');
+      if (bar) bar.hidden = true;
+      loadGoogleAnalytics();
+    });
+  }
 
-  declineBtn?.addEventListener('click', () => {
-    localStorage.setItem(CONSENT_KEY, 'denied');
-    bar.hidden = true;
-  });
+  if (declineBtn) {
+    declineBtn.addEventListener('click', () => {
+      localStorage.setItem(CONSENT_KEY, 'denied');
+      if (bar) bar.hidden = true;
+    });
+  }
 
 })();
