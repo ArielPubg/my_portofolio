@@ -209,4 +209,118 @@
     }
   }
 
+  /* ================= PROJECT VIDEO PLAYERS ================= */
+  const formatTime = (seconds) => {
+    if (!isFinite(seconds) || seconds < 0) return '00:00';
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  const playerWindows = Array.from(document.querySelectorAll('.player-window:not(.is-pending)'));
+
+  playerWindows.forEach(win => {
+    const video = win.querySelector('.player-video');
+    const stage = win.querySelector('.player-stage');
+    const playBtn = win.querySelector('.player-play');
+    const expandBtn = win.querySelector('.player-expand');
+    const timecodeEl = win.querySelector('[data-timecode]');
+    const statusEl = win.querySelector('[data-status]');
+    if (!video || !playBtn) return;
+
+    const setStatus = (playing) => {
+      win.classList.toggle('is-playing', playing);
+      playBtn.innerHTML = playing
+        ? '<i class="fa-solid fa-pause" aria-hidden="true"></i>'
+        : '<i class="fa-solid fa-play" aria-hidden="true"></i>';
+      playBtn.setAttribute('aria-label', playing ? 'Mettre en pause' : 'Lire la vidéo');
+      if (statusEl) {
+        statusEl.innerHTML = playing
+          ? '<span class="rec-dot"></span>REC'
+          : '<span class="rec-dot"></span>pause';
+      }
+    };
+
+    const togglePlay = () => {
+      if (video.paused) {
+        // une seule vidéo jouée à la fois parmi les projets
+        playerWindows.forEach(other => {
+          if (other === win) return;
+          const otherVideo = other.querySelector('.player-video');
+          if (otherVideo && !otherVideo.paused) otherVideo.pause();
+        });
+        video.muted = false;
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            video.muted = true;
+            video.play().catch(() => {});
+          });
+        }
+      } else {
+        video.pause();
+      }
+    };
+
+    playBtn.addEventListener('click', togglePlay);
+    video.addEventListener('click', togglePlay);
+
+    video.addEventListener('play', () => setStatus(true));
+    video.addEventListener('pause', () => setStatus(false));
+    video.addEventListener('ended', () => setStatus(false));
+
+    video.addEventListener('timeupdate', () => {
+      if (timecodeEl) timecodeEl.textContent = formatTime(video.currentTime);
+    });
+    video.addEventListener('loadedmetadata', () => {
+      if (timecodeEl) timecodeEl.textContent = formatTime(0);
+    });
+
+    // pause automatique quand la vidéo sort de l'écran
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting && !video.paused) video.pause();
+      });
+    }, { threshold: 0.2 });
+    visibilityObserver.observe(win);
+
+    // agrandir le champ de lecture (plein écran)
+    if (expandBtn && stage) {
+      const isCurrentlyFullscreen = () => {
+        const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+        return fsEl === stage;
+      };
+
+      const syncExpandState = () => {
+        const active = isCurrentlyFullscreen();
+        stage.classList.toggle('is-fullscreen', active);
+        expandBtn.innerHTML = active
+          ? '<i class="fa-solid fa-compress" aria-hidden="true"></i>'
+          : '<i class="fa-solid fa-expand" aria-hidden="true"></i>';
+        expandBtn.setAttribute('aria-label', active ? 'Quitter le plein écran' : 'Agrandir la vidéo');
+      };
+
+      expandBtn.addEventListener('click', (evt) => {
+        evt.stopPropagation();
+        if (isCurrentlyFullscreen()) {
+          if (document.exitFullscreen) document.exitFullscreen();
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+          return;
+        }
+        if (stage.requestFullscreen) {
+          stage.requestFullscreen();
+        } else if (stage.webkitRequestFullscreen) {
+          stage.webkitRequestFullscreen();
+        } else if (video.webkitEnterFullscreen) {
+          // Safari iOS : seule la balise <video> supporte le plein écran natif
+          video.webkitEnterFullscreen();
+        }
+      });
+
+      ['fullscreenchange', 'webkitfullscreenchange'].forEach(evt => {
+        document.addEventListener(evt, syncExpandState);
+      });
+    }
+  });
+
 })();

@@ -290,13 +290,35 @@
   <section class="projects" id="projects">
     <div class="wrap">
       <p class="section-eyebrow mono" data-reveal>04 — Projets</p>
-      <h2 class="section-title" data-reveal>Réalisations récentes.</h2>
+      <h2 class="section-title" data-reveal>Réalisations récentes, en images.</h2>
+      <p class="section-sub" data-reveal data-reveal-delay="1">
+        Chaque livraison a son rush. Les tournages restants arrivent au fil de l'eau.
+      </p>
 
       <div class="project-list">
 
+        <!-- 1 — a une vidéo -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-1" aria-hidden="true">
-            <i class="fa-solid fa-plane"></i>
+          <div class="project-media">
+            <div class="player-window">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">presentation_agence_de_voyage.mp4</span>
+                <span class="player-status mono" data-status><span class="rec-dot"></span>pause</span>
+              </div>
+              <div class="player-stage">
+                <video class="player-video" preload="metadata" playsinline muted loop>
+                  <source src="videos/presentation agence de voyage.mp4" type="video/mp4">
+                </video>
+                <button class="player-play" type="button" aria-label="Lire la vidéo">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="player-expand" type="button" aria-label="Agrandir la vidéo">
+                  <i class="fa-solid fa-expand"></i>
+                </button>
+                <span class="player-timecode mono" data-timecode>00:00</span>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Web · Django</span>
@@ -306,15 +328,26 @@
             <ul class="tech-chips">
               <li>Django</li><li>PostgreSQL</li><li>JavaScript</li><li>Bootstrap</li>
             </ul>
-            <a href="https://github.com/ArielPubg/Projet_Agence_de_Voyage" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
+        <!-- 2 — en préparation -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-2" aria-hidden="true">
-            <i class="fa-solid fa-list-check"></i>
+          <div class="project-media">
+            <div class="player-window is-pending">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">clip_todolist.mp4</span>
+                <span class="player-status mono">en tournage</span>
+              </div>
+              <div class="player-stage player-stage--empty">
+                <div class="static-noise" aria-hidden="true"></div>
+                <div class="pending-msg">
+                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+                  <span class="mono">Vidéo en préparation</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Web · Django</span>
@@ -324,15 +357,26 @@
             <ul class="tech-chips">
               <li>Django</li><li>SQLite</li><li>JavaScript</li>
             </ul>
-            <a href="https://github.com/ArielPubg/todolist" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
+        <!-- 3 — en préparation -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-3" aria-hidden="true">
-            <i class="fa-solid fa-futbol"></i>
+          <div class="project-media">
+            <div class="player-window is-pending">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">clip_perf_sportive.mp4</span>
+                <span class="player-status mono">en tournage</span>
+              </div>
+              <div class="player-stage player-stage--empty">
+                <div class="static-noise" aria-hidden="true"></div>
+                <div class="pending-msg">
+                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+                  <span class="mono">Vidéo en préparation</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Data Analyse</span>
@@ -342,15 +386,26 @@
             <ul class="tech-chips">
               <li>Python</li><li>Pandas</li><li>Matplotlib</li>
             </ul>
-            <a href="https://github.com/ArielPubg/analyse_performance_sport" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
+        <!-- 4 — en préparation -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-4" aria-hidden="true">
-            <i class="fa-solid fa-brain"></i>
+          <div class="project-media">
+            <div class="player-window is-pending">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">clip_prediction_ml.mp4</span>
+                <span class="player-status mono">en tournage</span>
+              </div>
+              <div class="player-stage player-stage--empty">
+                <div class="static-noise" aria-hidden="true"></div>
+                <div class="pending-msg">
+                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+                  <span class="mono">Vidéo en préparation</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Machine Learning</span>
@@ -360,15 +415,26 @@
             <ul class="tech-chips">
               <li>Scikit-Learn</li><li>Python</li><li>NumPy</li>
             </ul>
-            <a href="https://github.com/ArielPubg/machine_learning_prediction_sport" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
+        <!-- 5 — en préparation -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-5" aria-hidden="true">
-            <i class="fa-solid fa-paw"></i>
+          <div class="project-media">
+            <div class="player-window is-pending">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">clip_donnees_vet.mp4</span>
+                <span class="player-status mono">en tournage</span>
+              </div>
+              <div class="player-stage player-stage--empty">
+                <div class="static-noise" aria-hidden="true"></div>
+                <div class="pending-msg">
+                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+                  <span class="mono">Vidéo en préparation</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Data · R</span>
@@ -378,15 +444,26 @@
             <ul class="tech-chips">
               <li>R</li><li>Tidyverse</li><li>RStudio</li>
             </ul>
-            <a href="https://github.com/ArielPubg/apurement_donnee_veterinaire" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
+        <!-- 6 — en préparation -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-6" aria-hidden="true">
-            <i class="fa-solid fa-temperature-low"></i>
+          <div class="project-media">
+            <div class="player-window is-pending">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">clip_chaine_froid.mp4</span>
+                <span class="player-status mono">en tournage</span>
+              </div>
+              <div class="player-stage player-stage--empty">
+                <div class="static-noise" aria-hidden="true"></div>
+                <div class="pending-msg">
+                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+                  <span class="mono">Vidéo en préparation</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Data · R Shiny</span>
@@ -396,15 +473,26 @@
             <ul class="tech-chips">
               <li>R</li><li>ggplot2</li><li>Shiny</li>
             </ul>
-            <a href="https://github.com/ArielPubg/analyse_chaine_froid" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
+        <!-- 7 — en préparation -->
         <article class="project-card" data-reveal>
-          <div class="project-visual proj-7" aria-hidden="true">
-            <i class="fa-solid fa-book"></i>
+          <div class="project-media">
+            <div class="player-window is-pending">
+              <div class="player-bar">
+                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                <span class="player-title mono">clip_bibliotheque.mp4</span>
+                <span class="player-status mono">en tournage</span>
+              </div>
+              <div class="player-stage player-stage--empty">
+                <div class="static-noise" aria-hidden="true"></div>
+                <div class="pending-msg">
+                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
+                  <span class="mono">Vidéo en préparation</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Web · Django</span>
@@ -414,9 +502,6 @@
             <ul class="tech-chips">
               <li>Python</li><li>Django</li><li>PostgreSQL</li>
             </ul>
-            <a href="https://github.com/ArielPubg/bibliotheque_django" target="_blank" rel="noopener" class="project-link">
-              Voir le code <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
           </div>
         </article>
 
