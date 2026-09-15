@@ -323,4 +323,207 @@
     }
   });
 
+  /* ================= LIGHTBOX GALLERY (aperçu -> plein cadre) ================= */
+  const createLightboxGallery = (root) => {
+    const track = root.querySelector('[data-track]');
+    const filmstrip = root.querySelector('[data-filmstrip]');
+    const prevBtn = root.querySelector('.gallery-nav--prev');
+    const nextBtn = root.querySelector('.gallery-nav--next');
+    const counterEl = root.querySelector('[data-counter]');
+    const captionEl = root.querySelector('[data-caption]');
+    const titleEl = root.querySelector('[data-lightbox-title]');
+    const autoplayBtn = root.querySelector('[data-autoplay-toggle]');
+    const closeBtn = root.querySelector('[data-lightbox-close]');
+    const backdrop = root.querySelector('[data-lightbox-backdrop]');
+    const stage = root.querySelector('.gallery-stage');
+
+    let slides = [];
+    let thumbs = [];
+    let index = 0;
+    let autoplayOn = false;
+    let autoplayTimer = null;
+    let lastFocused = null;
+
+    const pad2 = (n) => String(n).padStart(2, '0');
+
+    const resetAutoplayButton = () => {
+      if (!autoplayBtn) return;
+      autoplayBtn.classList.remove('is-active');
+      autoplayBtn.setAttribute('aria-pressed', 'false');
+      autoplayBtn.innerHTML = '<i class="fa-solid fa-play" aria-hidden="true"></i><span>auto</span>';
+    };
+
+    const render = () => {
+      const total = slides.length;
+      if (!total) return;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      thumbs.forEach((t, i) => t.classList.toggle('is-active', i === index));
+      if (counterEl) counterEl.textContent = `${pad2(index + 1)} / ${pad2(total)}`;
+      const img = slides[index].querySelector('img');
+      if (captionEl && img) captionEl.textContent = img.alt;
+      if (thumbs[index]) thumbs[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    };
+
+    const goTo = (i) => {
+      const total = slides.length;
+      if (!total) return;
+      index = (i + total) % total;
+      render();
+    };
+    const next = () => goTo(index + 1);
+    const prev = () => goTo(index - 1);
+
+    const stopAutoplay = () => {
+      if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; }
+    };
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (!reduceMotion) autoplayTimer = setInterval(next, 3500);
+    };
+
+    // reconstruit les diapositives / miniatures à partir du <template> du projet cliqué
+    const load = (fragment, title) => {
+      track.innerHTML = '';
+      filmstrip.innerHTML = '';
+      track.appendChild(fragment.cloneNode(true));
+      slides = Array.from(track.querySelectorAll('.gallery-slide'));
+
+      slides.forEach((slide, i) => {
+        const img = slide.querySelector('img');
+        if (!img) return;
+        img.loading = 'eager';
+
+        const thumb = document.createElement('button');
+        thumb.type = 'button';
+        thumb.className = 'gallery-thumb';
+        thumb.setAttribute('aria-label', `Aller à l'image ${i + 1}`);
+
+        const thumbImg = document.createElement('img');
+        thumbImg.src = img.currentSrc || img.src;
+        thumbImg.alt = '';
+        thumbImg.loading = 'lazy';
+        thumb.appendChild(thumbImg);
+
+        thumb.addEventListener('click', () => { goTo(i); if (autoplayOn) startAutoplay(); });
+        filmstrip.appendChild(thumb);
+      });
+
+      thumbs = Array.from(filmstrip.querySelectorAll('.gallery-thumb'));
+      if (titleEl) titleEl.textContent = title || '';
+      index = 0;
+      render();
+    };
+
+    const open = (fragment, title, trigger) => {
+      lastFocused = trigger || document.activeElement;
+      load(fragment, title);
+      root.classList.add('is-open');
+      root.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-locked');
+      if (closeBtn) closeBtn.focus();
+    };
+
+    const close = () => {
+      root.classList.remove('is-open');
+      root.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-locked');
+      stopAutoplay();
+      autoplayOn = false;
+      resetAutoplayButton();
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    if (prevBtn) prevBtn.addEventListener('click', () => { prev(); if (autoplayOn) startAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { next(); if (autoplayOn) startAutoplay(); });
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (backdrop) backdrop.addEventListener('click', close);
+
+    document.addEventListener('keydown', (e) => {
+      if (!root.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') { prev(); if (autoplayOn) startAutoplay(); }
+      else if (e.key === 'ArrowRight') { next(); if (autoplayOn) startAutoplay(); }
+    });
+
+    if (autoplayBtn) {
+      autoplayBtn.addEventListener('click', () => {
+        autoplayOn = !autoplayOn;
+        autoplayBtn.classList.toggle('is-active', autoplayOn);
+        autoplayBtn.setAttribute('aria-pressed', String(autoplayOn));
+        autoplayBtn.innerHTML = autoplayOn
+          ? '<i class="fa-solid fa-pause" aria-hidden="true"></i><span>auto</span>'
+          : '<i class="fa-solid fa-play" aria-hidden="true"></i><span>auto</span>';
+        if (autoplayOn) startAutoplay(); else stopAutoplay();
+      });
+    }
+
+    // glisser / balayer pour changer d'image
+    let dragging = false;
+    let startX = 0;
+    let deltaX = 0;
+    let widthPx = 1;
+
+    const dragStart = (x) => {
+      dragging = true;
+      startX = x;
+      deltaX = 0;
+      widthPx = stage.getBoundingClientRect().width || 1;
+      track.style.transition = 'none';
+      if (autoplayOn) stopAutoplay();
+    };
+    const dragMove = (x) => {
+      if (!dragging) return;
+      deltaX = x - startX;
+      const percent = (deltaX / widthPx) * 100;
+      track.style.transform = `translateX(calc(-${index * 100}% + ${percent}%))`;
+    };
+    const dragEnd = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = '';
+      const threshold = widthPx * 0.15;
+      if (deltaX > threshold) prev();
+      else if (deltaX < -threshold) next();
+      else render();
+      if (autoplayOn) startAutoplay();
+    };
+
+    stage.addEventListener('touchstart', (e) => dragStart(e.touches[0].clientX), { passive: true });
+    stage.addEventListener('touchmove', (e) => dragMove(e.touches[0].clientX), { passive: true });
+    stage.addEventListener('touchend', dragEnd);
+
+    stage.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return;
+      dragStart(e.clientX);
+      stage.setPointerCapture(e.pointerId);
+    });
+    stage.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
+      dragMove(e.clientX);
+    });
+    stage.addEventListener('pointerup', (e) => {
+      if (e.pointerType === 'touch') return;
+      dragEnd();
+    });
+    stage.addEventListener('pointerleave', () => { if (dragging) dragEnd(); });
+
+    return { open };
+  };
+
+  const lightboxRoot = document.querySelector('[data-lightbox]');
+  if (lightboxRoot) {
+    const lightbox = createLightboxGallery(lightboxRoot);
+
+    document.querySelectorAll('[data-gallery-trigger]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const mediaWrap = trigger.closest('.project-media');
+        const template = mediaWrap ? mediaWrap.querySelector('[data-gallery-template]') : null;
+        if (!template) return;
+        const title = trigger.getAttribute('data-gallery-title') || '';
+        lightbox.open(template.content, title, trigger);
+      });
+    });
+  }
+
 })();

@@ -331,34 +331,6 @@
           </div>
         </article>
 
-        <!-- 2 — en préparation -->
-        <article class="project-card" data-reveal>
-          <div class="project-media">
-            <div class="player-window is-pending">
-              <div class="player-bar">
-                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="player-title mono">clip_todolist.mp4</span>
-                <span class="player-status mono">en tournage</span>
-              </div>
-              <div class="player-stage player-stage--empty">
-                <div class="static-noise" aria-hidden="true"></div>
-                <div class="pending-msg">
-                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
-                  <span class="mono">Vidéo en préparation</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag mono">Web · Django</span>
-            <h3>Gestionnaire de tâches</h3>
-            <p>Application de gestion de tâches avec interface épurée, pensée pour un usage quotidien
-              rapide et sans friction.</p>
-            <ul class="tech-chips">
-              <li>Django</li><li>SQLite</li><li>JavaScript</li>
-            </ul>
-          </div>
-        </article>
 
         <!-- 3 — en préparation -->
         <article class="project-card" data-reveal>
@@ -476,34 +448,96 @@
           </div>
         </article>
 
-        <!-- 7 — en préparation -->
+        <!-- 7 — aperçu + galerie en lightbox -->
         <article class="project-card" data-reveal>
           <div class="project-media">
-            <div class="player-window is-pending">
-              <div class="player-bar">
+            <button class="player-window gallery-preview-trigger" type="button" data-gallery-trigger
+              data-gallery-title="bibliotheque_django — captures"
+              aria-haspopup="dialog" aria-label="Ouvrir la galerie de captures — Gestion de bibliothèque (17 images)">
+              <span class="player-bar">
                 <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="player-title mono">clip_bibliotheque.mp4</span>
-                <span class="player-status mono">en tournage</span>
-              </div>
-              <div class="player-stage player-stage--empty">
-                <div class="static-noise" aria-hidden="true"></div>
-                <div class="pending-msg">
-                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
-                  <span class="mono">Vidéo en préparation</span>
-                </div>
-              </div>
-            </div>
+                <span class="player-title mono">bibliotheque_django</span>
+                <span class="player-status mono"><i class="fa-solid fa-images" aria-hidden="true"></i>17</span>
+              </span>
+              <span class="gallery-preview-stage">
+                <img src="Images-logo/bibliotheque_django/dashboard_admin.png" alt="Aperçu du projet Gestion de bibliothèque" loading="lazy">
+                <span class="gallery-preview-overlay">
+                  <span class="gallery-preview-icon"><i class="fa-solid fa-images" aria-hidden="true"></i></span>
+                  <span class="gallery-preview-label mono">Voir en images</span>
+                </span>
+              </span>
+            </button>
+
+            <template data-gallery-template>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/connexion.png" alt="Connexion étudiant"></figure>
+             <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/inscription.png" alt="Inscription étudiant"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/dashboard.png" alt="Tableau de bord — ETUDIANT"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/emprunts_utilisateur.png" alt="Etudiant - Mes emprunts en cours"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/recherche_livre_avance.png" alt="ETUDIANT - Catalogue et recherche de livres"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/profil_utilisateur.png" alt="Mon profil — espace étudiant"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/connexion_admin.png" alt="Connexion administrateur"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/inscription_admin.png" alt="Inscription administrateur"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/dashboard_admin.png" alt="Tableau de bord admin — BiblioSys"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/dashboard_admin_suite.png" alt="Tableau de bord admin — BiblioSys"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/gestion_etudiant.png" alt="ADMIN - Gestion des étudiants"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/gestion_livre.png" alt="ADMIN - Gestion des livres"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/gestion_location.png" alt="ADMIN - Gestion des locations"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/info_personnelles.png" alt="ADMIN - Informations personnelles — administrateur"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/rapport_1.png" alt="ADMIN - Rapports et statistiques — vue d'ensemble"></figure>
+              <figure class="gallery-slide"><img src="Images-logo/bibliotheque_django/rapport_2.png" alt="ADMIN - Rapports et statistiques — activité récente"></figure>
+            </template>
           </div>
           <div class="project-info">
             <span class="project-tag mono">Web · Django</span>
             <h3>Gestion de bibliothèque</h3>
             <p>Système de gestion des stocks de livres, des emprunts et des lecteurs pour une
-              bibliothèque.</p>
+              bibliothèque : espace étudiant (recherche, emprunts, profil) et back-office
+              administrateur (livres, étudiants, locations, statistiques).</p>
             <ul class="tech-chips">
               <li>Python</li><li>Django</li><li>PostgreSQL</li>
             </ul>
           </div>
         </article>
+<!-- TODOLIST -->
+<article class="project-card" data-reveal>
+  <div class="project-media">
+    <button class="player-window gallery-preview-trigger" type="button" data-gallery-trigger
+      data-gallery-title="todolist_django — captures"
+      aria-haspopup="dialog" aria-label="Ouvrir la galerie de captures — Todolist (4 images)">
+      <span class="player-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="player-title mono">todolist_django</span>
+        <span class="player-status mono"><i class="fa-solid fa-images" aria-hidden="true"></i>4</span>
+      </span>
+      <span class="gallery-preview-stage">
+        <img src="Images-logo/todolist/connexion.png" alt="Aperçu du projet Todolist" loading="lazy">
+        <span class="gallery-preview-overlay">
+          <span class="gallery-preview-icon"><i class="fa-solid fa-images" aria-hidden="true"></i></span>
+          <span class="gallery-preview-label mono">Voir en images</span>
+        </span>
+      </span>
+    </button>
+
+    <template data-gallery-template>
+      <figure class="gallery-slide"><img src="Images-logo/todolist/connexion.png" alt="Connexion — Todolist"></figure>
+     <figure class="gallery-slide"><img src="Images-logo/todolist/inscription.png" alt="Inscription — Todolist"></figure>
+      <figure class="gallery-slide"><img src="Images-logo/todolist/dashboard.png" alt="Tableau de bord — Todolist"></figure>
+      <figure class="gallery-slide"><img src="Images-logo/todolist/taches.png" alt="Ajout d'une tâche"></figure>
+      <figure class="gallery-slide"><img src="Images-logo/todolist/mission.png" alt="Liste des tâches"></figure>
+    </template>
+  </div>
+  <div class="project-info">
+    <span class="project-tag mono">Web · Django</span>
+    <h3>Todolist</h3>
+    <p>Application de gestion de tâches avec interface épurée, pensée pour un usage quotidien
+      rapide et sans friction.</p>
+    <ul class="tech-chips">
+      <li>Django</li><li>SQLite</li><li>JavaScript</li>
+    </ul>
+  </div>
+</article>
+        
+
 
       </div>
     </div>
@@ -548,6 +582,37 @@
   </section>
 
 </main>
+
+<!-- ============ LIGHTBOX GALERIE (partagée par les projets) ============ -->
+<div class="lightbox" data-lightbox aria-hidden="true">
+  <div class="lightbox-backdrop" data-lightbox-backdrop></div>
+  <div class="lightbox-window" role="dialog" aria-modal="true" aria-label="Galerie de captures du projet">
+    <div class="player-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <span class="player-title mono" data-lightbox-title>captures</span>
+      <button class="gallery-autoplay" type="button" data-autoplay-toggle aria-pressed="false" aria-label="Lecture automatique">
+        <i class="fa-solid fa-play" aria-hidden="true"></i><span>auto</span>
+      </button>
+      <span class="gallery-counter mono" data-counter>01 / 01</span>
+      <button class="lightbox-close" type="button" data-lightbox-close aria-label="Fermer la galerie">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="gallery-stage">
+      <button class="gallery-nav gallery-nav--prev" type="button" aria-label="Image précédente">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <div class="gallery-track" data-track></div>
+      <button class="gallery-nav gallery-nav--next" type="button" aria-label="Image suivante">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="gallery-caption mono" data-caption></div>
+    <div class="gallery-filmstrip" data-filmstrip></div>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
