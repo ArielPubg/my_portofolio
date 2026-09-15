@@ -525,229 +525,278 @@
       });
     });
   }
-/* ================= DOC VIEWER (notebook + rapport) ================= */
-const docViewerRoot = document.querySelector('[data-doc-viewer]');
-if (docViewerRoot) {
-  const contentEl = docViewerRoot.querySelector('[data-doc-content]');
-  const titleEl   = docViewerRoot.querySelector('[data-doc-title]');
-  const closeBtn  = docViewerRoot.querySelector('[data-doc-close]');
-  const backdrop  = docViewerRoot.querySelector('[data-doc-backdrop]');
-  const tabs      = Array.from(docViewerRoot.querySelectorAll('[data-doc-tab]'));
 
-  let sources = { notebook: null, report: null };
-  let lastFocused = null;
-  const cache = new Map();
+  /* ================= DOC VIEWER (notebook + scripts R + rapports) ================= */
+  const docViewerRoot = document.querySelector('[data-doc-viewer]');
+  if (docViewerRoot) {
+    const contentEl = docViewerRoot.querySelector('[data-doc-content]');
+    const titleEl   = docViewerRoot.querySelector('[data-doc-title]');
+    const closeBtn  = docViewerRoot.querySelector('[data-doc-close]');
+    const backdrop  = docViewerRoot.querySelector('[data-doc-backdrop]');
+    const tabs      = Array.from(docViewerRoot.querySelectorAll('[data-doc-tab]'));
 
-  const showLoading = () => {
-    contentEl.innerHTML =
-      '<div class="doc-loading"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>' +
-      '<span>Chargement du document…</span></div>';
-  };
-  const showError = (msg) => {
-    contentEl.innerHTML =
-      '<div class="doc-error"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>' +
-      '<span></span></div>';
-    contentEl.querySelector('span').textContent = msg;
-  };
+    let sources = { notebook: null, report: null };
+    let lastFocused = null;
+    const cache = new Map();
 
-  const joinSource = (src) => Array.isArray(src) ? src.join('') : (src || '');
+    const showLoading = () => {
+      contentEl.innerHTML =
+        '<div class="doc-loading"><i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>' +
+        '<span>Chargement du document…</span></div>';
+    };
+    const showError = (msg) => {
+      contentEl.innerHTML =
+        '<div class="doc-error"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>' +
+        '<span></span></div>';
+      contentEl.querySelector('span').textContent = msg;
+    };
 
-  const resolveRelative = (base, src) => {
-    if (!src) return src;
-    if (/^(https?:|data:|blob:|\/\/|\/)/i.test(src)) return src;
-    return base + src.replace(/^\.\//, '');
-  };
+    const joinSource = (src) => Array.isArray(src) ? src.join('') : (src || '');
+    const baseOf = (url) => url.substring(0, url.lastIndexOf('/') + 1);
 
-  const mdToHtml = (md) => {
-    if (window.marked && typeof window.marked.parse === 'function') {
-      try { return window.marked.parse(md); } catch (e) { /* fallback */ }
-    }
-    const div = document.createElement('div');
-    div.textContent = md;
-    return div.innerHTML.replace(/\n/g, '<br>');
-  };
+    const resolveRelative = (base, src) => {
+      if (!src) return src;
+      if (/^(https?:|data:|blob:|\/\/|\/)/i.test(src)) return src;
+      return base + src.replace(/^\.\//, '');
+    };
 
-  const renderMarkdownInto = (el, md, base) => {
-    el.innerHTML = mdToHtml(md);
-    el.querySelectorAll('img[src]').forEach(img => {
-      img.src = resolveRelative(base, img.getAttribute('src'));
-    });
-    el.querySelectorAll('a[href]').forEach(a => {
-      const href = a.getAttribute('href');
-      if (href && !/^(https?:|mailto:|tel:|#|\/)/i.test(href)) {
-        a.setAttribute('href', resolveRelative(base, href));
+    const mdToHtml = (md) => {
+      if (window.marked && typeof window.marked.parse === 'function') {
+        try { return window.marked.parse(md); } catch (e) { /* fallback */ }
       }
-    });
-  };
-
-  const buildMarkdownDoc = (text, base) => {
-    const wrap = document.createElement('article');
-    wrap.className = 'doc-markdown';
-    renderMarkdownInto(wrap, text, base);
-    return wrap;
-  };
-
-  const buildNotebookCell = (cell, base) => {
-    if (cell.cell_type === 'markdown' || cell.cell_type === 'raw') {
       const div = document.createElement('div');
-      div.className = 'nb-cell nb-cell--markdown';
-      renderMarkdownInto(div, joinSource(cell.source), base);
-      return div;
-    }
-    if (cell.cell_type !== 'code') return null;
+      div.textContent = md;
+      return div.innerHTML.replace(/\n/g, '<br>');
+    };
 
-    const wrap = document.createElement('div');
-    wrap.className = 'nb-cell nb-cell--code';
-
-    const prompt = document.createElement('span');
-    prompt.className = 'nb-prompt';
-    prompt.textContent = 'In [' + (cell.execution_count != null ? cell.execution_count : ' ') + ']:';
-    wrap.appendChild(prompt);
-
-    const input = document.createElement('pre');
-    input.className = 'nb-code nb-input';
-    const code = document.createElement('code');
-    code.textContent = joinSource(cell.source);
-    input.appendChild(code);
-    wrap.appendChild(input);
-
-    (cell.outputs || []).forEach(out => {
-      const outEl = document.createElement('div');
-      outEl.className = 'nb-output';
-
-      if (out.output_type === 'stream') {
-        const pre = document.createElement('pre');
-        pre.className = 'nb-stream';
-        pre.textContent = joinSource(out.text);
-        outEl.appendChild(pre);
-      } else if (out.output_type === 'error') {
-        const pre = document.createElement('pre');
-        pre.className = 'nb-error';
-        pre.textContent = Array.isArray(out.traceback) ? out.traceback.join('\n') : (out.evalue || '');
-        outEl.appendChild(pre);
-      } else {
-        const data = out.data || {};
-        const png = data['image/png'];
-        const jpg = data['image/jpeg'];
-        if (png || jpg) {
-          const img = document.createElement('img');
-          img.className = 'nb-image';
-          img.alt = 'Sortie graphique';
-          img.loading = 'lazy';
-          const raw = joinSource(png || jpg).replace(/\s+/g, '');
-          img.src = 'data:image/' + (png ? 'png' : 'jpeg') + ';base64,' + raw;
-          outEl.appendChild(img);
+    const renderMarkdownInto = (el, md, base) => {
+      el.innerHTML = mdToHtml(md);
+      el.querySelectorAll('img[src]').forEach(img => {
+        img.src = resolveRelative(base, img.getAttribute('src'));
+      });
+      el.querySelectorAll('a[href]').forEach(a => {
+        const href = a.getAttribute('href');
+        if (href && !/^(https?:|mailto:|tel:|#|\/)/i.test(href)) {
+          a.setAttribute('href', resolveRelative(base, href));
         }
-        if (data['text/html']) {
-          const div = document.createElement('div');
-          div.className = 'nb-html';
-          div.innerHTML = joinSource(data['text/html']);
-          outEl.appendChild(div);
-        }
-        if (data['text/plain'] && !png && !jpg && !data['text/html']) {
+      });
+    };
+
+    /* --- Construction des documents --- */
+
+    const buildMarkdownDoc = (text, base) => {
+      const wrap = document.createElement('article');
+      wrap.className = 'doc-markdown';
+      renderMarkdownInto(wrap, text, base);
+      return wrap;
+    };
+
+    const buildRCodeDoc = (text, url) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'doc-code-wrap';
+
+      const header = document.createElement('div');
+      header.className = 'doc-code-header';
+      const fileName = url.split('/').pop();
+      header.innerHTML =
+        '<i class="fa-solid fa-file-code" aria-hidden="true"></i>' +
+        '<span></span>' +
+        '<span class="doc-code-lines"></span>';
+      header.querySelector('span:not(.doc-code-lines)').textContent = fileName;
+      header.querySelector('.doc-code-lines').textContent = text.split('\n').length + ' lignes';
+      wrap.appendChild(header);
+
+      const pre = document.createElement('pre');
+      pre.className = 'doc-code';
+      const code = document.createElement('code');
+      code.className = 'language-r';
+
+      // Découpage en lignes pour numérotation CSS
+      text.split('\n').forEach(line => {
+        const span = document.createElement('span');
+        span.className = 'line';
+        span.textContent = line + '\n';
+        code.appendChild(span);
+      });
+
+      pre.appendChild(code);
+      wrap.appendChild(pre);
+
+      if (window.hljs) {
+        try { window.hljs.highlightElement(code); } catch (e) { /* silencieux */ }
+      }
+      return wrap;
+    };
+
+    const buildNotebookCell = (cell, base) => {
+      if (cell.cell_type === 'markdown' || cell.cell_type === 'raw') {
+        const div = document.createElement('div');
+        div.className = 'nb-cell nb-cell--markdown';
+        renderMarkdownInto(div, joinSource(cell.source), base);
+        return div;
+      }
+      if (cell.cell_type !== 'code') return null;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'nb-cell nb-cell--code';
+
+      const prompt = document.createElement('span');
+      prompt.className = 'nb-prompt';
+      prompt.textContent = 'In [' + (cell.execution_count != null ? cell.execution_count : ' ') + ']:';
+      wrap.appendChild(prompt);
+
+      const input = document.createElement('pre');
+      input.className = 'nb-code nb-input';
+      const code = document.createElement('code');
+      code.textContent = joinSource(cell.source);
+      input.appendChild(code);
+      wrap.appendChild(input);
+
+      (cell.outputs || []).forEach(out => {
+        const outEl = document.createElement('div');
+        outEl.className = 'nb-output';
+
+        if (out.output_type === 'stream') {
           const pre = document.createElement('pre');
           pre.className = 'nb-stream';
-          pre.textContent = joinSource(data['text/plain']);
+          pre.textContent = joinSource(out.text);
           outEl.appendChild(pre);
+        } else if (out.output_type === 'error') {
+          const pre = document.createElement('pre');
+          pre.className = 'nb-error';
+          pre.textContent = Array.isArray(out.traceback) ? out.traceback.join('\n') : (out.evalue || '');
+          outEl.appendChild(pre);
+        } else {
+          const data = out.data || {};
+          const png = data['image/png'];
+          const jpg = data['image/jpeg'];
+          if (png || jpg) {
+            const img = document.createElement('img');
+            img.className = 'nb-image';
+            img.alt = 'Sortie graphique';
+            img.loading = 'lazy';
+            const raw = joinSource(png || jpg).replace(/\s+/g, '');
+            img.src = 'data:image/' + (png ? 'png' : 'jpeg') + ';base64,' + raw;
+            outEl.appendChild(img);
+          }
+          if (data['text/html']) {
+            const div = document.createElement('div');
+            div.className = 'nb-html';
+            div.innerHTML = joinSource(data['text/html']);
+            outEl.appendChild(div);
+          }
+          if (data['text/plain'] && !png && !jpg && !data['text/html']) {
+            const pre = document.createElement('pre');
+            pre.className = 'nb-stream';
+            pre.textContent = joinSource(data['text/plain']);
+            outEl.appendChild(pre);
+          }
         }
+        if (outEl.childNodes.length) wrap.appendChild(outEl);
+      });
+      return wrap;
+    };
+
+    const buildNotebookDoc = (nb, base) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'doc-notebook';
+      (nb.cells || []).forEach(cell => {
+        const el = buildNotebookCell(cell, base);
+        if (el) wrap.appendChild(el);
+      });
+      return wrap;
+    };
+
+    /* --- Fetchers par extension --- */
+
+    const fetchDoc = async (url, kind) => {
+      const ext = url.split('.').pop().toLowerCase();
+      const res = await fetch(url, { cache: 'force-cache' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const base = baseOf(url);
+
+      if (ext === 'ipynb') {
+        const json = await res.json();
+        return buildNotebookDoc(json, base);
       }
-      if (outEl.childNodes.length) wrap.appendChild(outEl);
+      const text = await res.text();
+      if (ext === 'r')  return buildRCodeDoc(text, url);
+      return buildMarkdownDoc(text, base);
+    };
+
+    /* --- Onglets --- */
+
+    const setActiveTab = (name) => {
+      tabs.forEach(t => {
+        const active = t.dataset.docTab === name;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', String(active));
+      });
+    };
+
+    const renderTab = async (name) => {
+      setActiveTab(name);
+      const url = sources[name];
+      if (!url) { showError('Aucune source pour cet onglet.'); return; }
+
+      if (cache.has(url)) {
+        contentEl.innerHTML = '';
+        contentEl.appendChild(cache.get(url));
+        contentEl.scrollTop = 0;
+        return;
+      }
+      showLoading();
+      try {
+        const node = await fetchDoc(url, name);
+        cache.set(url, node);
+        contentEl.innerHTML = '';
+        contentEl.appendChild(node);
+        contentEl.scrollTop = 0;
+      } catch (err) {
+        console.error(err);
+        showError('Impossible de charger le document (' + url + ').');
+      }
+    };
+
+    /* --- Ouverture / fermeture --- */
+
+    const openViewer = (tabName, config, title, trigger) => {
+      sources = config;
+      lastFocused = trigger || document.activeElement;
+      if (titleEl) titleEl.textContent = title || 'documentation';
+      docViewerRoot.classList.add('is-open');
+      docViewerRoot.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-locked');
+      if (closeBtn) closeBtn.focus();
+      renderTab(tabName || 'notebook');
+    };
+
+    const closeViewer = () => {
+      docViewerRoot.classList.remove('is-open');
+      docViewerRoot.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-locked');
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    tabs.forEach(t => t.addEventListener('click', () => renderTab(t.dataset.docTab)));
+    if (closeBtn) closeBtn.addEventListener('click', closeViewer);
+    if (backdrop) backdrop.addEventListener('click', closeViewer);
+    document.addEventListener('keydown', (e) => {
+      if (!docViewerRoot.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeViewer();
     });
-    return wrap;
-  };
 
-  const buildNotebookDoc = (nb, base) => {
-    const wrap = document.createElement('div');
-    wrap.className = 'doc-notebook';
-    (nb.cells || []).forEach(cell => {
-      const el = buildNotebookCell(cell, base);
-      if (el) wrap.appendChild(el);
+    /* --- Déclencheurs --- */
+    document.querySelectorAll('[data-doc-open]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('[data-project-docs]');
+        if (!card) return;
+        const config = {
+          notebook: card.getAttribute('data-notebook-src'),
+          report:   card.getAttribute('data-report-src')
+        };
+        const title = card.getAttribute('data-doc-title') || 'documentation';
+        openViewer(btn.getAttribute('data-doc-open'), config, title, btn);
+      });
     });
-    return wrap;
-  };
-
-  const baseOf = (url) => url.substring(0, url.lastIndexOf('/') + 1);
-
-  const fetchDoc = async (url, kind) => {
-    const res = await fetch(url, { cache: 'force-cache' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const base = baseOf(url);
-    if (kind === 'notebook') {
-      const json = await res.json();
-      return buildNotebookDoc(json, base);
-    }
-    const text = await res.text();
-    return buildMarkdownDoc(text, base);
-  };
-
-  const setActiveTab = (name) => {
-    tabs.forEach(t => {
-      const active = t.dataset.docTab === name;
-      t.classList.toggle('is-active', active);
-      t.setAttribute('aria-selected', String(active));
-    });
-  };
-
-  const renderTab = async (name) => {
-    setActiveTab(name);
-    const url = sources[name];
-    if (!url) { showError('Aucune source pour cet onglet.'); return; }
-    if (cache.has(url)) {
-      contentEl.innerHTML = '';
-      contentEl.appendChild(cache.get(url));
-      contentEl.scrollTop = 0;
-      return;
-    }
-    showLoading();
-    try {
-      const node = await fetchDoc(url, name);
-      cache.set(url, node);
-      contentEl.innerHTML = '';
-      contentEl.appendChild(node);
-      contentEl.scrollTop = 0;
-    } catch (err) {
-      console.error(err);
-      showError('Impossible de charger le document (' + url + ').');
-    }
-  };
-
-  const openViewer = (tabName, config, title, trigger) => {
-    sources = config;
-    lastFocused = trigger || document.activeElement;
-    if (titleEl) titleEl.textContent = title || 'documentation';
-    docViewerRoot.classList.add('is-open');
-    docViewerRoot.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('lightbox-locked');
-    if (closeBtn) closeBtn.focus();
-    renderTab(tabName || 'notebook');
-  };
-
-  const closeViewer = () => {
-    docViewerRoot.classList.remove('is-open');
-    docViewerRoot.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('lightbox-locked');
-    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-  };
-
-  tabs.forEach(t => t.addEventListener('click', () => renderTab(t.dataset.docTab)));
-  if (closeBtn) closeBtn.addEventListener('click', closeViewer);
-  if (backdrop) backdrop.addEventListener('click', closeViewer);
-  document.addEventListener('keydown', (e) => {
-    if (!docViewerRoot.classList.contains('is-open')) return;
-    if (e.key === 'Escape') closeViewer();
-  });
-
-  document.querySelectorAll('[data-doc-open]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('[data-project-docs]');
-      if (!card) return;
-      const config = {
-        notebook: card.getAttribute('data-notebook-src'),
-        report:   card.getAttribute('data-report-src')
-      };
-      const title = card.getAttribute('data-doc-title') || 'documentation';
-      openViewer(btn.getAttribute('data-doc-open'), config, title, btn);
-    });
-  });
-}
-})();
+  }})();

@@ -943,3 +943,89 @@ body.lightbox-locked{overflow:hidden;}
 /* ---------- Actions projet ---------- */
 .project-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;}
 .btn-sm{padding:9px 16px; font-size:.78rem;}
+
+/* =========================================================
+   DOC VIEWER — compléments (code R + aperçu stylisé)
+   ========================================================= */
+
+/* ---------- Aperçu carte projet (sans image) ---------- */
+.doc-preview-stage{
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(160deg, #0B1622 0%, #17293D 100%);
+  position:relative;
+}
+.doc-preview-lines{
+  position:absolute; inset:0;
+  display:flex; flex-direction:column; gap:8px;
+  padding:22px 28px;
+  opacity:.35;
+}
+.doc-preview-lines span{
+  display:block; height:6px; border-radius:3px;
+  background:linear-gradient(90deg,
+    rgba(242,177,52,.75) 0%, rgba(242,177,52,.75) var(--w,60%),
+    transparent var(--w,60%) 100%);
+}
+.doc-preview-lines span:nth-child(1){--w:42%;}
+.doc-preview-lines span:nth-child(2){--w:68%;}
+.doc-preview-lines span:nth-child(3){--w:55%;}
+.doc-preview-lines span:nth-child(4){--w:80%;}
+.doc-preview-lines span:nth-child(5){--w:35%;}
+.doc-preview-lines span:nth-child(6){--w:72%;}
+.doc-preview-lines span:nth-child(7){--w:60%;}
+.doc-preview-lines span:nth-child(8){--w:48%;}
+.doc-preview-lines span:nth-child(9){--w:76%;}
+
+/* ---------- Rendu code R (numérotation + coloration) ---------- */
+.doc-code-wrap{
+  background:#0B1622;
+  min-height:100%;
+}
+.doc-code-header{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 20px;
+  background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  color:#9AA7B4; font-family:var(--font-mono); font-size:.75rem;
+  position:sticky; top:0; z-index:2;
+}
+.doc-code-header i{color:var(--accent);}
+.doc-code-header .doc-code-lines{margin-left:auto; opacity:.7;}
+
+.doc-code{
+  margin:0; padding:20px 24px;
+  font-family:var(--font-mono); font-size:.85rem; line-height:1.65;
+  color:#EDEAE1; background:transparent;
+  overflow-x:auto;
+}
+.doc-code code{
+  display:block; font-family:inherit;
+  counter-reset:line;
+}
+.doc-code code > .line{
+  display:block;
+  counter-increment:line;
+  padding-left:56px;
+  position:relative;
+  white-space:pre;
+}
+.doc-code code > .line::before{
+  content:counter(line);
+  position:absolute; left:0; top:0;
+  width:44px; text-align:right;
+  color:#4A5A6B; user-select:none;
+}
+
+/* Couleurs highlight.js (thème sombre) */
+.doc-code .hljs-comment, .doc-code .hljs-quote{color:#6B7A88; font-style:italic;}
+.doc-code .hljs-keyword, .doc-code .hljs-selector-tag{color:#F2B134;}
+.doc-code .hljs-string, .doc-code .hljs-attr{color:#59D9A6;}
+.doc-code .hljs-number, .doc-code .hljs-literal{color:#E8A65B;}
+.doc-code .hljs-function, .doc-code .hljs-title{color:#79B8FF;}
+.doc-code .hljs-variable, .doc-code .hljs-name{color:#EDEAE1;}
+
+@media (max-width:600px){
+  .doc-code{padding:16px 14px; font-size:.78rem;}
+  .doc-code code > .line{padding-left:40px;}
+  .doc-code code > .line::before{width:30px;}
+}

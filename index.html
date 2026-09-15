@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/r.min.js"></script>
 
 <!-- Vercel Web Analytics (pas de cookies, pas de consentement requis) -->
 <script>
@@ -383,64 +386,94 @@
 
         </article>
 
-        <!-- 5 — en préparation -->
-        <article class="project-card" data-reveal>
-          <div class="project-media">
-            <div class="player-window is-pending">
-              <div class="player-bar">
-                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="player-title mono">clip_donnees_vet.mp4</span>
-                <span class="player-status mono">en tournage</span>
-              </div>
-              <div class="player-stage player-stage--empty">
-                <div class="static-noise" aria-hidden="true"></div>
-                <div class="pending-msg">
-                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
-                  <span class="mono">Vidéo en préparation</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag mono">Data · R</span>
-            <h3>Apurement de données vétérinaires</h3>
-            <p>Traitement et fiabilisation d'une base de données vétérinaire, pour la rendre exploitable
-              en analyse.</p>
-            <ul class="tech-chips">
-              <li>R</li><li>Tidyverse</li><li>RStudio</li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- 6 — en préparation -->
-        <article class="project-card" data-reveal>
-          <div class="project-media">
-            <div class="player-window is-pending">
-              <div class="player-bar">
-                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="player-title mono">clip_chaine_froid.mp4</span>
-                <span class="player-status mono">en tournage</span>
-              </div>
-              <div class="player-stage player-stage--empty">
-                <div class="static-noise" aria-hidden="true"></div>
-                <div class="pending-msg">
-                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
-                  <span class="mono">Vidéo en préparation</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag mono">Data · R Shiny</span>
-            <h3>Chaîne de froid — Burkina Faso</h3>
-            <p>Analyse de données sur la chaîne de froid pharmaceutique pour identifier les tendances et
-              points de rupture.</p>
-            <ul class="tech-chips">
-              <li>R</li><li>ggplot2</li><li>Shiny</li>
-            </ul>
-          </div>
-        </article>
-
+       <!-- 5 — Traitement des données vétérinaires (script R + rapport) -->
+<article class="project-card" data-reveal data-project-docs
+  data-notebook-src="Images-logo/traitement_donnee_veto/these_gloria_traitement_script_R.R"
+  data-report-src="Images-logo/traitement_donnee_veto/Rapport_Traitement_VETO_DATA.md"
+  data-doc-title="traitement_donnee_veto — documentation">
+  <div class="project-media">
+    <button class="player-window gallery-preview-trigger" type="button" data-doc-open="notebook"
+      aria-haspopup="dialog" aria-label="Consulter le script de traitement">
+      <span class="player-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="player-title mono">these_gloria_traitement_script_R.R</span>
+        <span class="player-status mono"><i class="fa-solid fa-code" aria-hidden="true"></i>R</span>
+      </span>
+      <span class="gallery-preview-stage doc-preview-stage">
+        <span class="doc-preview-lines" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="gallery-preview-overlay">
+          <span class="gallery-preview-icon"><i class="fa-solid fa-broom" aria-hidden="true"></i></span>
+          <span class="gallery-preview-label mono">Consulter le script &amp; le rapport</span>
+        </span>
+      </span>
+    </button>
+  </div>
+  <div class="project-info">
+    <span class="project-tag mono">Data · R · Traitement</span>
+    <h3>Traitement des données vétérinaires</h3>
+    <p>Apurement et harmonisation de la base d'enquête : fusion des colonnes « Autre / Préciser »,
+      nettoyage textuel, uniformisation des modalités (transport, énergie, périodicité, fréquences
+      de nettoyage) — base prête pour l'analyse statistique.</p>
+    <ul class="tech-chips">
+      <li>R</li><li>dplyr</li><li>stringi</li><li>tidyverse</li><li>openxlsx</li>
+    </ul>
+    <div class="project-actions">
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="notebook">
+        <i class="fa-solid fa-code" aria-hidden="true"></i> Consulter le script R
+      </button>
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="report">
+        <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Lire le rapport
+      </button>
+    </div>
+  </div>
+</article>
+       <!-- 6 — Analyse chaîne de froid (script R + rapport) -->
+<article class="project-card" data-reveal data-project-docs
+  data-notebook-src="Images-logo/analyse_chaine_froid_bf/veto_data_analyse.R"
+  data-report-src="Images-logo/analyse_chaine_froid_bf/Rapport_Analyse_VETO_DATA.md"
+  data-doc-title="analyse_chaine_froid_bf — documentation">
+  <div class="project-media">
+    <button class="player-window gallery-preview-trigger" type="button" data-doc-open="notebook"
+      aria-haspopup="dialog" aria-label="Consulter le script d'analyse">
+      <span class="player-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="player-title mono">veto_data_analyse.R</span>
+        <span class="player-status mono"><i class="fa-solid fa-code" aria-hidden="true"></i>R</span>
+      </span>
+      <span class="gallery-preview-stage doc-preview-stage">
+        <span class="doc-preview-lines" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="gallery-preview-overlay">
+          <span class="gallery-preview-icon"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i></span>
+          <span class="gallery-preview-label mono">Consulter le script &amp; le rapport</span>
+        </span>
+      </span>
+    </button>
+  </div>
+  <div class="project-info">
+    <span class="project-tag mono">Data · R · Analyse</span>
+    <h3>Chaîne de froid — Burkina Faso</h3>
+    <p>Analyse statistique complète des données d'enquête : taux par poste, chi², odds ratios,
+      score de connaissances et de pratiques sur la gestion de la chaîne de froid des vaccins
+      vétérinaires.</p>
+    <ul class="tech-chips">
+      <li>R</li><li>dplyr</li><li>openxlsx</li><li>epitools</li><li>ggplot2</li>
+    </ul>
+    <div class="project-actions">
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="notebook">
+        <i class="fa-solid fa-code" aria-hidden="true"></i> Consulter le script R
+      </button>
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="report">
+        <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Lire le rapport
+      </button>
+    </div>
+  </div>
+</article>
         <!-- 7 — aperçu + galerie en lightbox -->
         <article class="project-card" data-reveal>
           <div class="project-media">
