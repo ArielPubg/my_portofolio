@@ -1029,3 +1029,236 @@ body.lightbox-locked{overflow:hidden;}
   .doc-code code > .line{padding-left:40px;}
   .doc-code code > .line::before{width:30px;}
 }
+
+/* =========================================================
+   CERT VIEWER — lecture PDF en grand
+   ========================================================= */
+.cert-viewer{
+  position:fixed; inset:0; z-index:340;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  opacity:0; pointer-events:none;
+  transition:opacity var(--dur-m) var(--ease);
+}
+.cert-viewer.is-open{opacity:1; pointer-events:auto;}
+
+.cert-viewer-backdrop{
+  position:absolute; inset:0;
+  background:color-mix(in srgb, var(--ink-900) 85%, transparent);
+  backdrop-filter:blur(6px);
+}
+
+.cert-viewer-window{
+  position:relative; z-index:1;
+  width:100%; max-width:1100px; height:92vh;
+  display:flex; flex-direction:column;
+  border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden;
+  background:var(--ink-800);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.7);
+  transform:translateY(14px) scale(.98);
+  transition:transform var(--dur-m) var(--ease);
+}
+.cert-viewer.is-open .cert-viewer-window{transform:none;}
+[data-theme="light"] .cert-viewer-window{background:#151F2B;}
+
+.cert-viewer-content{
+  flex:1; overflow:hidden;
+  background:#1A1A1A;
+  position:relative;
+}
+.cert-viewer-content iframe{
+  width:100%; height:100%;
+  border:none; display:block;
+  background:#FFFFFF;
+}
+.cert-viewer-content img{
+  width:100%; height:100%;
+  object-fit:contain; display:block;
+  background:#1A1A1A;
+}
+
+.cert-viewer-download,
+.cert-viewer-open{
+  width:28px; height:28px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  color:#9AA7B4; font-size:.78rem;
+  transition:color var(--dur-s) var(--ease), background var(--dur-s) var(--ease);
+}
+.cert-viewer-download:hover,
+.cert-viewer-open:hover{
+  color:var(--paper); background:rgba(255,255,255,.1);
+}
+
+/* Petites affiches "cliquable" sur les cartes */
+.cert-card{
+  cursor:pointer;
+  position:relative;
+}
+.cert-card::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--ink-900) 55%, transparent) 100%);
+  opacity:0;
+  transition:opacity var(--dur-s) var(--ease);
+  pointer-events:none;
+  border-radius:var(--radius-m);
+}
+.cert-card:hover::after,
+.cert-card:focus-visible::after{opacity:1;}
+
+.cert-card::before{
+  content:"\f00e"; /* fa-magnifying-glass-plus */
+  font-family:"Font Awesome 6 Free";
+  font-weight:900;
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%, -70%) scale(.8);
+  width:46px; height:46px;
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:color-mix(in srgb, var(--ink-900) 65%, transparent);
+  color:var(--paper);
+  border:1px solid rgba(255,255,255,.25);
+  font-size:.9rem;
+  opacity:0;
+  transition:opacity var(--dur-s) var(--ease), transform var(--dur-s) var(--ease);
+  pointer-events:none;
+  z-index:1;
+}
+.cert-card:hover::before,
+.cert-card:focus-visible::before{
+  opacity:1;
+  transform:translate(-50%, -70%) scale(1);
+}
+
+/* Fallback mobile : bouton direct sur la carte */
+@media (hover:none){
+  .cert-card::before,
+  .cert-card::after{display:none;}
+}
+
+@media (max-width:600px){
+  .cert-viewer{padding:0;}
+  .cert-viewer-window{
+    max-width:100%; height:100vh; border-radius:0;
+    border-left:none; border-right:none; border-bottom:none;
+  }
+  .cert-viewer-content{background:#0B1622;}
+  .cert-viewer-download,
+  .cert-viewer-open{display:none;}
+}
+/* =========================================================
+   PAGE LOADER — logo rond rotatif, bien visible
+   ========================================================= */
+.page-loader{
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at center,
+    color-mix(in srgb, var(--ink-800) 100%, transparent) 0%,
+    var(--bg) 70%);
+  transition:opacity .6s var(--ease), visibility .6s var(--ease);
+}
+.page-loader.is-hidden{
+  opacity:0; visibility:hidden; pointer-events:none;
+}
+
+.page-loader-inner{
+  position:relative;
+  width:200px; height:200px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* --- Halo lumineux pulsé (z-index 1) --- */
+.page-loader-inner::before{
+  content:"";
+  position:absolute; inset:-10px;
+  border-radius:50%;
+  background:radial-gradient(circle,
+    color-mix(in srgb, var(--accent) 32%, transparent) 0%,
+    color-mix(in srgb, var(--accent-2) 18%, transparent) 45%,
+    transparent 72%);
+  animation:loader-halo 2s ease-in-out infinite;
+  z-index:1;
+  pointer-events:none;
+}
+@keyframes loader-halo{
+  0%,100%{transform:scale(.9); opacity:.55;}
+  50%{transform:scale(1.15); opacity:.95;}
+}
+
+/* --- Anneau extérieur tournant (z-index 2) --- */
+.page-loader-inner::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:var(--accent);
+  border-right-color:var(--accent);
+  border-bottom-color:color-mix(in srgb, var(--accent-2) 85%, transparent);
+  border-left-color:color-mix(in srgb, var(--accent-2) 85%, transparent);
+  animation:loader-ring 1.6s linear infinite;
+  z-index:2;
+  pointer-events:none;
+}
+@keyframes loader-ring{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+/* --- Anneau intérieur tournant en sens inverse (z-index 2) --- */
+.page-loader-ring-inner{
+  position:absolute; inset:18px;
+  border-radius:50%;
+  border:2px dashed color-mix(in srgb, var(--accent-2) 60%, transparent);
+  animation:loader-ring-reverse 3s linear infinite;
+  z-index:2;
+  pointer-events:none;
+}
+@keyframes loader-ring-reverse{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(-360deg);}
+}
+
+/* --- LE LOGO — au premier plan, fond crème pour contraste garanti --- */
+.page-loader-logo{
+  position:relative;
+  z-index:3;
+  width:130px; height:130px;
+  display:block;
+  object-fit:contain;
+  border-radius:50%;
+  background:#0B1622;              /* fond sombre → un logo blanc ressort */
+  padding:14px;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 0 40px color-mix(in srgb, var(--accent) 65%, transparent),
+    0 0 90px color-mix(in srgb, var(--accent-2) 40%, transparent);
+  animation:logo-spin 3s linear infinite;
+  will-change:transform;
+  backface-visibility:hidden;
+  transform:translateZ(0);
+}
+@keyframes logo-spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+/* Version light — fond radial plus clair */
+[data-theme="light"] .page-loader{
+  background:radial-gradient(circle at center, #FFFFFF 0%, #F4F2EC 70%);
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce){
+  .page-loader-logo,
+  .page-loader-inner::after,
+  .page-loader-ring-inner,
+  .page-loader-inner::before{animation:none;}
+}
+
+/* Responsive */
+@media (max-width:480px){
+  .page-loader-inner{width:160px; height:160px;}
+  .page-loader-logo{width:100px; height:100px; padding:10px;}
+  .page-loader-ring-inner{inset:14px;}
+}

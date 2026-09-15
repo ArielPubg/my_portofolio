@@ -1,6 +1,30 @@
 (() => {
   'use strict';
+  /* ================= PAGE LOADER (logo rotatif) ================= */
+  const pageLoader = document.getElementById('page-loader');
+  if (pageLoader) {
+    // On impose un temps minimum d'affichage pour éviter un flash
+    const MIN_DURATION = 900; // ms
+    const startTime = performance.now();
 
+    const hideLoader = () => {
+      const elapsed = performance.now() - startTime;
+      const remaining = Math.max(0, MIN_DURATION - elapsed);
+      setTimeout(() => {
+        pageLoader.classList.add('is-hidden');
+        // Suppression complète après la transition
+        setTimeout(() => pageLoader.remove(), 700);
+      }, remaining);
+    };
+
+    if (document.readyState === 'complete') {
+      hideLoader();
+    } else {
+      window.addEventListener('load', hideLoader, { once: true });
+      // Sécurité : si le load met trop de temps (vidéo lourde), on cache après 4s max
+      setTimeout(() => { if (document.body.contains(pageLoader)) hideLoader(); }, 4000);
+    }
+  }
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ================= THEME ================= */
@@ -797,6 +821,74 @@
         };
         const title = card.getAttribute('data-doc-title') || 'documentation';
         openViewer(btn.getAttribute('data-doc-open'), config, title, btn);
+      });
+    });
+  }
+
+  /* ================= CERT VIEWER (lecture PDF en grand) ================= */
+  const certViewerRoot = document.querySelector('[data-cert-viewer]');
+  if (certViewerRoot) {
+    const contentEl = certViewerRoot.querySelector('[data-cert-content]');
+    const titleEl   = certViewerRoot.querySelector('[data-cert-title]');
+    const closeBtn  = certViewerRoot.querySelector('[data-cert-close]');
+    const backdrop  = certViewerRoot.querySelector('[data-cert-backdrop]');
+    const dlLink    = certViewerRoot.querySelector('[data-cert-download]');
+    const extLink   = certViewerRoot.querySelector('[data-cert-external]');
+
+    let lastFocused = null;
+
+    const openCert = (src, title, trigger) => {
+      lastFocused = trigger || document.activeElement;
+
+      if (titleEl) titleEl.textContent = title || src.split('/').pop();
+      if (dlLink)  dlLink.setAttribute('href', src);
+      if (extLink) extLink.setAttribute('href', src);
+
+      // Rendu : PDF → iframe, image → <img>, autre → iframe générique
+      const ext = src.split('.').pop().toLowerCase();
+      contentEl.innerHTML = '';
+
+      if (['png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'].includes(ext)) {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = title || 'Certificat';
+        contentEl.appendChild(img);
+      } else {
+        const iframe = document.createElement('iframe');
+        iframe.src = src + '#view=FitH';
+        iframe.setAttribute('title', title || 'Certificat');
+        iframe.setAttribute('loading', 'eager');
+        contentEl.appendChild(iframe);
+      }
+
+      certViewerRoot.classList.add('is-open');
+      certViewerRoot.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-locked');
+      if (closeBtn) closeBtn.focus();
+    };
+
+    const closeCert = () => {
+      certViewerRoot.classList.remove('is-open');
+      certViewerRoot.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-locked');
+      // Libère la mémoire : le PDF est rechargé à la prochaine ouverture
+      contentEl.innerHTML = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeCert);
+    if (backdrop) backdrop.addEventListener('click', closeCert);
+    document.addEventListener('keydown', (e) => {
+      if (!certViewerRoot.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeCert();
+    });
+
+    document.querySelectorAll('[data-cert-open]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const src   = btn.getAttribute('data-cert-src');
+        const title = btn.getAttribute('data-cert-title');
+        if (!src) return;
+        openCert(src, title, btn);
       });
     });
   }})();

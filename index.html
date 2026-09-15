@@ -15,6 +15,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/r.min.js"></script>
+<link rel="icon" type="image/png" href="logo.jpg">
+<link rel="apple-touch-icon" href="logo.jpg">
 
 <!-- Vercel Web Analytics (pas de cookies, pas de consentement requis) -->
 <script>
@@ -23,6 +25,14 @@
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body data-theme="dark">
+<!-- ============ LOADER (logo rotatif au chargement) ============ -->
+<div class="page-loader" id="page-loader" aria-hidden="true">
+  <div class="page-loader-inner">
+    <img src="logo.jpg" alt="" class="page-loader-logo">
+    <span class="page-loader-ring-inner" aria-hidden="true"></span>
+  </div>
+</div>
+</div>
 
 <div class="grain" aria-hidden="true"></div>
 
@@ -254,39 +264,77 @@
       <h2 class="section-title" data-reveal>Formation continue, validée.</h2>
 
       <div class="cert-grid" data-reveal data-reveal-delay="1">
-        <a class="cert-card" href="certificats/Certifcat Google.pdf" target="_blank" rel="noopener">
-          <img src="certificats/python COUSERA.jpg" alt="Certificat Python" loading="lazy">
-          <span>Python — Coursera</span>
-        </a>
-        <a class="cert-card" href="certificats/Certificat.pdf" target="_blank" rel="noopener">
-          <img src="certificats/Data Analysis ForceN.png" alt="Certificat Data Analysis" loading="lazy">
-          <span>Data Analysis</span>
-        </a>
-        <a class="cert-card" href="certificats/Coursera AWS.pdf" target="_blank" rel="noopener">
-          <img src="certificats/AWS COURSERA.jpg" alt="Certificat AWS Cloud" loading="lazy">
-          <span>AWS Cloud</span>
-        </a>
-        <a class="cert-card" href="certificats/Coursera promptEnginneer.pdf" target="_blank" rel="noopener">
-          <img src="certificats/promptEnginneer.png" alt="Certificat Prompt Engineering" loading="lazy">
-          <span>Prompt Engineering</span>
-        </a>
-        <a class="cert-card" href="certificats/Coursera_linux.pdf" target="_blank" rel="noopener">
-          <img src="certificats/linux.png" alt="Certificat Introduction à Linux" loading="lazy">
-          <span>Introduction à Linux</span>
-        </a>
-        <a class="cert-card" href="certificats/Course API.pdf" target="_blank" rel="noopener">
-          <img src="certificats/api_python.png" alt="Certificat API avec Python" loading="lazy">
-          <span>API avec Python</span>
-        </a>
-        <a class="cert-card" href="certificats/certificat_pandas.pdf" target="_blank" rel="noopener">
-          <img src="certificats/pandas.png" alt="Certificat Pandas" loading="lazy">
-          <span>Pandas</span>
-        </a>
-        <a class="cert-card" href="certificats/Statistique Data Science.pdf" target="_blank" rel="noopener">
-          <img src="certificats/statistique.png" alt="Certificat Statistiques pour la Data Science" loading="lazy">
-          <span>Statistiques pour la Data Science</span>
-        </a>
-      </div>
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Certifcat Google.pdf"
+    data-cert-title="Python — Coursera"
+    aria-haspopup="dialog" aria-label="Voir le certificat Python — Coursera en grand">
+    <img src="certificats/python COUSERA.jpg" alt="Certificat Python" loading="lazy">
+    <span>Python — Coursera</span>
+  </button>
+
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Certificat.pdf"
+    data-cert-title="Data Analysis"
+    aria-haspopup="dialog" aria-label="Voir le certificat Data Analysis en grand">
+    <img src="certificats/Data Analysis ForceN.png" alt="Certificat Data Analysis" loading="lazy">
+    <span>Data Analysis</span>
+  </button>
+
+   <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/certificate_MEAL.pdf"
+    data-cert-title="MEAL-Suivi-Evaluation-Rédevabilité-Apprentissage"
+    aria-haspopup="dialog" aria-label="Voir le certificat MEAL-Suivi-Evaluation-Rédevabilité-Apprentissage en grand">
+    <img src="certificats/meal.png" alt="Certificat MEAL-Suivi-Evaluation-Rédevabilité-Apprentissage" loading="lazy">
+    <span>MEAL-Suivi-Evaluation-Rédevabilité-Apprentissage</span>
+  </button>
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Coursera AWS.pdf"
+    data-cert-title="AWS Cloud"
+    aria-haspopup="dialog" aria-label="Voir le certificat AWS Cloud en grand">
+    <img src="certificats/AWS COURSERA.jpg" alt="Certificat AWS Cloud" loading="lazy">
+    <span>AWS Cloud</span>
+  </button>
+
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Coursera promptEnginneer.pdf"
+    data-cert-title="Prompt Engineering"
+    aria-haspopup="dialog" aria-label="Voir le certificat Prompt Engineering en grand">
+    <img src="certificats/promptEnginneer.png" alt="Certificat Prompt Engineering" loading="lazy">
+    <span>Prompt Engineering</span>
+  </button>
+
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Coursera_linux.pdf"
+    data-cert-title="Introduction à Linux"
+    aria-haspopup="dialog" aria-label="Voir le certificat Introduction à Linux en grand">
+    <img src="certificats/linux.png" alt="Certificat Introduction à Linux" loading="lazy">
+    <span>Introduction à Linux</span>
+  </button>
+
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Course API.pdf"
+    data-cert-title="API avec Python"
+    aria-haspopup="dialog" aria-label="Voir le certificat API avec Python en grand">
+    <img src="certificats/api_python.png" alt="Certificat API avec Python" loading="lazy">
+    <span>API avec Python</span>
+  </button>
+
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/certificat_pandas.pdf"
+    data-cert-title="Pandas"
+    aria-haspopup="dialog" aria-label="Voir le certificat Pandas en grand">
+    <img src="certificats/pandas.png" alt="Certificat Pandas" loading="lazy">
+    <span>Pandas</span>
+  </button>
+
+  <button class="cert-card" type="button" data-cert-open
+    data-cert-src="certificats/Statistique Data Science.pdf"
+    data-cert-title="Statistiques pour la Data Science"
+    aria-haspopup="dialog" aria-label="Voir le certificat Statistiques pour la Data Science en grand">
+    <img src="certificats/statistique.png" alt="Certificat Statistiques pour la Data Science" loading="lazy">
+    <span>Statistiques pour la Data Science</span>
+  </button>
+</div>
     </div>
   </section>
 
@@ -668,6 +716,35 @@
   </div>
 </div>
 
+<!-- ============ CERT VIEWER (lecture PDF en grand) ============ -->
+<div class="cert-viewer" data-cert-viewer aria-hidden="true">
+  <div class="cert-viewer-backdrop" data-cert-backdrop></div>
+  <div class="cert-viewer-window" role="dialog" aria-modal="true" aria-label="Certificat">
+    <div class="player-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <span class="player-title mono" data-cert-title>certificat.pdf</span>
+      <a class="cert-viewer-download" data-cert-download
+        href="#" download
+        aria-label="Télécharger le certificat">
+        <i class="fa-solid fa-download" aria-hidden="true"></i>
+      </a>
+      <a class="cert-viewer-open" data-cert-external
+        href="#" target="_blank" rel="noopener"
+        aria-label="Ouvrir dans un nouvel onglet">
+        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+      </a>
+      <button class="lightbox-close" type="button" data-cert-close aria-label="Fermer le certificat">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="cert-viewer-content" data-cert-content>
+      <div class="doc-loading">
+        <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
+        <span>Chargement du certificat…</span>
+      </div>
+    </div>
+  </div>
+</div>
 <footer class="site-footer">
   <div class="wrap footer-inner">
     <span>&copy; 2026 Ariel Drabo</span>
