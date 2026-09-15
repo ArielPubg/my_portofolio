@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 
 <!-- Vercel Web Analytics (pas de cookies, pas de consentement requis) -->
 <script>
@@ -290,9 +291,9 @@
   <section class="projects" id="projects">
     <div class="wrap">
       <p class="section-eyebrow mono" data-reveal>04 — Projets</p>
-      <h2 class="section-title" data-reveal>Réalisations récentes, en images.</h2>
+      <h2 class="section-title" data-reveal>Réalisations en images.</h2>
       <p class="section-sub" data-reveal data-reveal-delay="1">
-        Chaque livraison a son rush. Les tournages restants arrivent au fil de l'eau.
+        Chaque livraison a son rush.
       </p>
 
       <div class="project-list">
@@ -332,62 +333,54 @@
         </article>
 
 
-        <!-- 3 — en préparation -->
-        <article class="project-card" data-reveal>
-          <div class="project-media">
-            <div class="player-window is-pending">
-              <div class="player-bar">
-                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="player-title mono">clip_perf_sportive.mp4</span>
-                <span class="player-status mono">en tournage</span>
-              </div>
-              <div class="player-stage player-stage--empty">
-                <div class="static-noise" aria-hidden="true"></div>
-                <div class="pending-msg">
-                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
-                  <span class="mono">Vidéo en préparation</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag mono">Data Analyse</span>
-            <h3>Data Performance sportive</h3>
-            <p>Analyse de données de performance footballistique pour dégager les indicateurs clés et
-              orienter les décisions d'un staff technique.</p>
-            <ul class="tech-chips">
-              <li>Python</li><li>Pandas</li><li>Matplotlib</li>
-            </ul>
-          </div>
-        </article>
 
-        <!-- 4 — en préparation -->
-        <article class="project-card" data-reveal>
-          <div class="project-media">
-            <div class="player-window is-pending">
-              <div class="player-bar">
-                <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
-                <span class="player-title mono">clip_prediction_ml.mp4</span>
-                <span class="player-status mono">en tournage</span>
-              </div>
-              <div class="player-stage player-stage--empty">
-                <div class="static-noise" aria-hidden="true"></div>
-                <div class="pending-msg">
-                  <i class="fa-solid fa-clapperboard" aria-hidden="true"></i>
-                  <span class="mono">Vidéo en préparation</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="project-tag mono">Machine Learning</span>
-            <h3>Prédiction de résultats sportifs</h3>
-            <p>Modèle prédictif entraîné sur des attributs statistiques historiques pour anticiper
-              l'issue de rencontres sportives.</p>
-            <ul class="tech-chips">
-              <li>Scikit-Learn</li><li>Python</li><li>NumPy</li>
-            </ul>
-          </div>
+        <!-- 3 — Analyse sport (image + notebook + rapport consultables) -->
+<article class="project-card" data-reveal data-project-docs
+  data-notebook-src="Images-logo/analyse_sport/AnalyseSport.ipynb"
+  data-report-src="Images-logo/analyse_sport/Rapport_Analyse_Performances_Football.md"
+  data-doc-title="analyse_sport — documentation">
+  <div class="project-media">
+    <button class="player-window gallery-preview-trigger" type="button" data-gallery-trigger
+      data-gallery-title="analyse_sport — présentation"
+      aria-haspopup="dialog" aria-label="Agrandir la présentation">
+      <span class="player-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="player-title mono">analyse_sport</span>
+        <span class="player-status mono"><i class="fa-solid fa-image" aria-hidden="true"></i>1</span>
+      </span>
+      <span class="gallery-preview-stage">
+        <img src="Images-logo/analyse_sport/accueil.png" alt="Aperçu du projet Analyse Sport" loading="lazy">
+        <span class="gallery-preview-overlay">
+          <span class="gallery-preview-icon"><i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i></span>
+          <span class="gallery-preview-label mono">Agrandir</span>
+        </span>
+      </span>
+    </button>
+
+    <template data-gallery-template>
+      <figure class="gallery-slide">
+        <img src="Images-logo/analyse_sport/accueil.png" alt="AnalyseSport — présentation">
+      </figure>
+    </template>
+  </div>
+  <div class="project-info">
+    <span class="project-tag mono">Data Analyse</span>
+    <h3>Data Performance sportive</h3>
+    <p>Donnée de Panel. Analyse de données de performance footballistique dans le temps.</p>
+    <ul class="tech-chips">
+      <li>Google colab</li><li>Python</li><li>Pandas</li><li>Matplotlib</li><li>sklearn</li>
+    </ul>
+    <div class="project-actions">
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="notebook">
+        <i class="fa-solid fa-code" aria-hidden="true"></i> Consulter le notebook
+      </button>
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="report">
+        <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Lire le rapport
+      </button>
+    </div>
+  </div>
+</article>
+
         </article>
 
         <!-- 5 — en préparation -->
@@ -611,6 +604,34 @@
 
     <div class="gallery-caption mono" data-caption></div>
     <div class="gallery-filmstrip" data-filmstrip></div>
+  </div>
+</div>
+
+<!-- ============ DOC VIEWER (notebook + rapport) ============ -->
+<div class="doc-viewer" data-doc-viewer aria-hidden="true">
+  <div class="doc-viewer-backdrop" data-doc-backdrop></div>
+  <div class="doc-viewer-window" role="dialog" aria-modal="true" aria-label="Documentation du projet">
+    <div class="player-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <span class="player-title mono" data-doc-title>documentation</span>
+      <div class="doc-tabs" role="tablist">
+        <button class="doc-tab is-active" type="button" data-doc-tab="notebook" role="tab" aria-selected="true">
+          <i class="fa-solid fa-code" aria-hidden="true"></i><span>Notebook</span>
+        </button>
+        <button class="doc-tab" type="button" data-doc-tab="report" role="tab" aria-selected="false">
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i><span>Rapport</span>
+        </button>
+      </div>
+      <button class="lightbox-close" type="button" data-doc-close aria-label="Fermer la documentation">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="doc-viewer-content" data-doc-content>
+      <div class="doc-loading">
+        <i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i>
+        <span>Chargement du document…</span>
+      </div>
+    </div>
   </div>
 </div>
 
