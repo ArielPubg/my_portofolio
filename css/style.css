@@ -1262,3 +1262,96 @@ body.lightbox-locked{overflow:hidden;}
   .page-loader-logo{width:100px; height:100px; padding:10px;}
   .page-loader-ring-inner{inset:14px;}
 }
+
+/* =========================================================
+   QR CODE — partage du portfolio
+   ========================================================= */
+.qr-share{
+  margin-top: 28px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-m);
+  transition: border-color var(--dur-s) var(--ease), transform var(--dur-s) var(--ease);
+}
+.qr-share:hover{
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.qr-share-visual{
+  flex-shrink: 0;
+  width: 132px;
+  height: 132px;
+  padding: 10px;
+  background: #FFFFFF;                /* fond blanc pour un scan fiable */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px -8px rgba(0,0,0,.35);
+}
+.qr-share-visual canvas,
+.qr-share-visual img,
+.qr-share-visual table{
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 6px;
+}
+
+/* Fallback si la lib QR ne charge pas */
+.qr-share-fallback{
+  color: #0B1622;
+  font-size: 2rem;
+}
+
+.qr-share-content{
+  flex: 1;
+  min-width: 0;
+}
+
+.qr-share-eyebrow{
+  font-size: .72rem;
+  color: var(--accent-2);
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+  opacity: .9;
+}
+
+.qr-share-title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .95rem;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+
+.qr-share-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.qr-share-actions .btn-sm{
+  padding: 7px 12px;
+  font-size: .72rem;
+}
+
+/* Retour visuel du "copié" */
+.qr-share-actions .btn-sm.is-copied{
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+}
+
+@media (max-width: 540px){
+  .qr-share{
+    flex-direction: column;
+    text-align: center;
+    padding: 20px 16px;
+  }
+  .qr-share-actions{justify-content: center;}
+}

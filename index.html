@@ -24,6 +24,9 @@
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+
+<!-- QRCode.js (davidshimjs) — génération de QR en pur navigateur -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body data-theme="dark">
 <!-- ============ LOADER (logo rotatif au chargement) ============ -->
@@ -682,6 +685,27 @@
             <a href="https://www.linkedin.com/in/ariel-drabo-78a99b345" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
             <a href="https://github.com/ArielPubg" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
           </div>
+          <!-- ============ QR CODE PARTAGE ============ -->
+<div class="qr-share" data-reveal data-reveal-delay="2">
+ <div class="qr-share-visual">
+  <div id="qr-canvas" aria-label="QR code vers ce portfolio"></div>
+  <span class="qr-share-fallback" hidden>
+    <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+  </span>
+</div>
+  <div class="qr-share-content">
+    <p class="qr-share-eyebrow mono">// Partager</p>
+    <p class="qr-share-title">Scanner pour ouvrir mon portfolio</p>
+    <div class="qr-share-actions">
+      <button type="button" class="btn btn-ghost btn-sm" data-qr-download>
+        <i class="fa-solid fa-download" aria-hidden="true"></i> PNG
+      </button>
+      <button type="button" class="btn btn-ghost btn-sm" data-qr-copy>
+        <i class="fa-solid fa-link" aria-hidden="true"></i> Copier le lien
+      </button>
+    </div>
+  </div>
+</div>
         </div>
 
         <form class="contact-form" data-reveal data-reveal-delay="1" action="https://formspree.io/f/xaqygvdy" method="POST">

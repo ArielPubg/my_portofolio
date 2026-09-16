@@ -961,4 +961,78 @@ const fetchDoc = async (url, kind) => {
         openCert(src, title, btn);
       });
     });
+  }
+
+   /* ================= QR CODE — partage du portfolio ================= */
+  const qrContainer = document.getElementById('qr-canvas');
+  if (qrContainer && typeof window.QRCode === 'function') {
+    const shareUrl = window.location.origin + window.location.pathname;
+
+    const qrWrap      = qrContainer.closest('.qr-share');
+    const downloadBtn = qrWrap ? qrWrap.querySelector('[data-qr-download]') : null;
+    const copyBtn     = qrWrap ? qrWrap.querySelector('[data-qr-copy]') : null;
+
+    qrContainer.innerHTML = '';
+
+    new window.QRCode(qrContainer, {
+      text: shareUrl,
+      width: 220,
+      height: 220,
+      colorDark: '#0B1622',
+      colorLight: '#FFFFFF',
+      correctLevel: window.QRCode.CorrectLevel.H
+    });
+
+    // --- Télécharger en PNG ---
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        const canvas = qrContainer.querySelector('canvas');
+        const img    = qrContainer.querySelector('img');
+
+        if (canvas) {
+          canvas.toBlob((blob) => {
+            if (!blob) return;
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'ariel-drabo-portfolio-qr.png';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(a.href);
+          }, 'image/png');
+          return;
+        }
+
+        if (img && img.src) {
+          const a = document.createElement('a');
+          a.href = img.src;
+          a.download = 'ariel-drabo-portfolio-qr.png';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }
+      });
+    }
+
+    // --- Copier le lien ---
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          const original = copyBtn.innerHTML;
+          copyBtn.classList.add('is-copied');
+          copyBtn.innerHTML = '<i class="fa-solid fa-check" aria-hidden="true"></i> Copié';
+          setTimeout(() => {
+            copyBtn.classList.remove('is-copied');
+            copyBtn.innerHTML = original;
+          }, 1800);
+        } catch (e) {
+          console.error('[QR] copie impossible :', e);
+        }
+      });
+    }
+  } else if (qrContainer) {
+    qrContainer.hidden = true;
+    const fb = qrContainer.closest('.qr-share')?.querySelector('.qr-share-fallback');
+    if (fb) fb.hidden = false;
   }})();
