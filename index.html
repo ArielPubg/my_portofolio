@@ -14,10 +14,11 @@
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/r.min.js"></script>
+<script src="JS\xlsx.full.min.js"></script>
 <link rel="icon" type="image/png" href="logo.jpg">
 <link rel="apple-touch-icon" href="logo.jpg">
-
+<!-- SheetJS : lecture de fichiers Excel côté navigateur, pour le viewer interactif -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <!-- Vercel Web Analytics (pas de cookies, pas de consentement requis) -->
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
@@ -522,6 +523,56 @@
     </div>
   </div>
 </article>
+
+<!-- Dashboard des ventes — Excel interactif -->
+<article class="project-card" data-reveal data-project-docs
+  data-notebook-src="Images-logo/Excel/tableau_de_bord_ventes.xlsm"
+  data-report-src="Images-logo/Excel/rapport.md"
+  data-doc-title="tableau_de_bord_ventes — documentation">
+  <div class="project-media">
+    <button class="player-window gallery-preview-trigger" type="button" data-doc-open="notebook"
+      aria-haspopup="dialog" aria-label="Explorer le dashboard interactif">
+      <span class="player-bar">
+        <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+        <span class="player-title mono">tableau_de_bord_ventes.xlsm</span>
+        <span class="player-status mono"><i class="fa-solid fa-table" aria-hidden="true"></i>7</span>
+      </span>
+      <span class="gallery-preview-stage doc-preview-stage">
+        <span class="doc-preview-lines" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </span>
+        <span class="gallery-preview-overlay">
+          <span class="gallery-preview-icon"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></span>
+          <span class="gallery-preview-label mono">Explorer le dashboard</span>
+        </span>
+      </span>
+    </button>
+  </div>
+  <div class="project-info">
+    <span class="project-tag mono">Data · Excel · VBA</span>
+    <h3>Tableau de bord des ventes — Épicerie multi-boutiques</h3>
+    <p>Simulation d'une chaîne de 5 boutiques d'épicerie au Burkina Faso&nbsp;: génération de
+      données de ventes réalistes (saisonnalité Ramadan, Tabaski, hivernage), calcul de KPIs par
+      formules Excel (SUMIFS/COUNTIFS/AVERAGEIFS), graphiques dynamiques et macros VBA
+      (actualisation, export PDF, filtrage par boutique).</p>
+    <ul class="tech-chips">
+      <li>Python</li><li>openpyxl</li><li>pandas</li><li>Excel</li><li>VBA</li>
+    </ul>
+    <div class="project-actions">
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="notebook">
+        <i class="fa-solid fa-table" aria-hidden="true"></i> Explorer le dashboard
+      </button>
+      <button class="btn btn-ghost btn-sm" type="button" data-doc-open="report">
+        <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Lire le rapport
+      </button>
+      <a class="btn btn-ghost btn-sm" href="Images-logo/Excel/tableau_de_bord_ventes.xlsm" download>
+        <i class="fa-solid fa-download" aria-hidden="true"></i> Télécharger (.xlsm)
+      </a>
+    </div>
+  </div>
+</article>
+
         <!-- 7 — aperçu + galerie en lightbox -->
         <article class="project-card" data-reveal>
           <div class="project-media">

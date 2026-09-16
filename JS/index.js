@@ -733,20 +733,90 @@
 
     /* --- Fetchers par extension --- */
 
-    const fetchDoc = async (url, kind) => {
-      const ext = url.split('.').pop().toLowerCase();
-      const res = await fetch(url, { cache: 'force-cache' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const base = baseOf(url);
+  /* =========================================================
+       buildExcelDoc — lecteur Excel (SheetJS)
+       ========================================================= */
 
-      if (ext === 'ipynb') {
-        const json = await res.json();
-        return buildNotebookDoc(json, base);
-      }
-      const text = await res.text();
-      if (ext === 'r')  return buildRCodeDoc(text, url);
-      return buildMarkdownDoc(text, base);
-    };
+const buildExcelDoc = (arrayBuffer) => {
+  const wb = XLSX.read(arrayBuffer, { type: 'array' });
+  const wrap = document.createElement('div');
+  wrap.className = 'doc-excel';
+
+  const tabsBar = document.createElement('div');
+  tabsBar.className = 'doc-excel-tabs';
+
+  const note = document.createElement('div');
+  note.className = 'doc-excel-note';
+  note.innerHTML =
+    '<i class="fa-solid fa-circle-info" aria-hidden="true"></i>' +
+    '<span>Aperçu des données et valeurs calculées. Graphiques, couleurs et macros VBA ' +
+    'sont visibles dans le fichier téléchargeable.</span>';
+
+  const tableWrap = document.createElement('div');
+  tableWrap.className = 'doc-excel-table-wrap';
+
+  wrap.appendChild(tabsBar);
+  wrap.appendChild(note);
+  wrap.appendChild(tableWrap);
+
+  const sheetNames = wb.SheetNames;
+
+  const renderSheet = (name) => {
+    const ws = wb.Sheets[name];
+    tableWrap.innerHTML = XLSX.utils.sheet_to_html(ws, { editable: false, id: undefined });
+    const table = tableWrap.querySelector('table');
+    if (table) {
+      table.classList.add('doc-excel-grid');
+      table.removeAttribute('border');
+      table.removeAttribute('cellpadding');
+      table.removeAttribute('cellspacing');
+    }
+    Array.from(tabsBar.children).forEach(btn =>
+      btn.classList.toggle('is-active', btn.dataset.sheet === name));
+  };
+
+  sheetNames.forEach((name) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'doc-excel-tab';
+    btn.textContent = name;
+    btn.dataset.sheet = name;
+    btn.addEventListener('click', () => renderSheet(name));
+    tabsBar.appendChild(btn);
+  });
+
+  // ouvre sur l'onglet "Dashboard" s'il existe, sinon le premier
+  renderSheet(sheetNames.includes('Dashboard') ? 'Dashboard' : sheetNames[0]);
+  return wrap;
+};
+
+/* =========================================================
+       fetchDoc — routeur par extension
+       (.ipynb | .r | .md | .xlsx/.xlsm/.xls)
+ ========================================================= */
+
+const fetchDoc = async (url, kind) => {
+  const ext = url.split('.').pop().toLowerCase();
+  const base = baseOf(url);
+
+  if (['xlsx', 'xlsm', 'xls'].includes(ext)) {
+    const res = await fetch(url, { cache: 'force-cache' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const buf = await res.arrayBuffer();
+    return buildExcelDoc(buf);
+  }
+
+  const res = await fetch(url, { cache: 'force-cache' });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+
+  if (ext === 'ipynb') {
+    const json = await res.json();
+    return buildNotebookDoc(json, base);
+  }
+  const text = await res.text();
+  if (ext === 'r') return buildRCodeDoc(text, url);
+  return buildMarkdownDoc(text, base);
+};
 
     /* --- Onglets --- */
 
